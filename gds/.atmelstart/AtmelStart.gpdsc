@@ -133,6 +133,14 @@
         <file category="header" condition="ARMCC, GCC, IAR" name="hri/hri_trng_e51.h"/>
         <file category="header" condition="ARMCC, GCC, IAR" name="hri/hri_usb_e51.h"/>
         <file category="header" condition="ARMCC, GCC, IAR" name="hri/hri_wdt_e51.h"/>
+        <file category="doc" condition="ARMCC, GCC, IAR" name="documentation/usb_protocol_cdc.rst"/>
+        <file category="doc" condition="ARMCC, GCC, IAR" name="documentation/usb_protocol_core.rst"/>
+        <file category="header" condition="ARMCC, GCC, IAR" name="usb/class/cdc/usb_protocol_cdc.h"/>
+        <file category="header" condition="ARMCC, GCC, IAR" name="usb/usb_atmel.h"/>
+        <file category="header" condition="ARMCC, GCC, IAR" name="usb/usb_debug.h"/>
+        <file category="header" condition="ARMCC, GCC, IAR" name="usb/usb_includes.h"/>
+        <file category="source" condition="ARMCC, GCC, IAR" name="usb/usb_protocol.c"/>
+        <file category="header" condition="ARMCC, GCC, IAR" name="usb/usb_protocol.h"/>
         <file category="source" condition="ARMCC, GCC, IAR" name="main.c"/>
         <file category="source" condition="ARMCC, GCC, IAR" name="driver_init.c"/>
         <file category="header" condition="ARMCC, GCC, IAR" name="driver_init.h"/>
@@ -165,6 +173,8 @@
         <file category="source" condition="ARMCC, GCC, IAR" name="hpl/ramecc/hpl_ramecc.c"/>
         <file category="source" condition="ARMCC, GCC, IAR" name="hpl/sercom/hpl_sercom.c"/>
         <file category="source" condition="ARMCC, GCC, IAR" name="hpl/usb/hpl_usb.c"/>
+        <file category="source" condition="ARMCC, GCC, IAR" name="usb_start.c"/>
+        <file category="header" condition="ARMCC, GCC, IAR" name="usb_start.h"/>
         <file category="header" condition="ARMCC, GCC, IAR" name="atmel_start.h"/>
         <file category="source" condition="ARMCC, GCC, IAR" name="atmel_start.c"/>
         <file attr="config" category="header" condition="ARMCC, GCC, IAR" name="config/hpl_cmcc_config.h"/>
@@ -195,6 +205,9 @@
         <file category="include" condition="ARMCC, GCC, IAR" name="hpl/sercom"/>
         <file category="include" condition="ARMCC, GCC, IAR" name="hpl/usb"/>
         <file category="include" condition="ARMCC, GCC, IAR" name="hri"/>
+        <file category="include" condition="ARMCC, GCC, IAR" name=""/>
+        <file category="include" condition="ARMCC, GCC, IAR" name="usb"/>
+        <file category="include" condition="ARMCC, GCC, IAR" name="usb/class/cdc"/>
         <file category="include" condition="ARMCC, GCC, IAR" name=""/>
       </files>
     </component>

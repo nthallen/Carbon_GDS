@@ -20,10 +20,10 @@
     <OverrideVtor>false</OverrideVtor>
     <CacheFlash>true</CacheFlash>
     <ProgFlashFromRam>true</ProgFlashFromRam>
-    <RamSnippetAddress />
+    <RamSnippetAddress>0x20000000</RamSnippetAddress>
     <UncachedRange />
     <preserveEEPROM>true</preserveEEPROM>
-    <OverrideVtorValue />
+    <OverrideVtorValue>exception_table</OverrideVtorValue>
     <BootSegment>2</BootSegment>
     <ResetRule>0</ResetRule>
     <eraseonlaunchrule>0</eraseonlaunchrule>
@@ -187,6 +187,19 @@
         <NonsecureFilesInfo />
       </AcmeProjectConfig>
     </AcmeProjectConfig>
+    <avrtool>custom</avrtool>
+    <avrtoolserialnumber />
+    <avrdeviceexpectedsignature>0x61810302</avrdeviceexpectedsignature>
+    <custom>
+      <ToolOptions xmlns="">
+        <InterfaceProperties>
+        </InterfaceProperties>
+      </ToolOptions>
+      <ToolType xmlns="">custom</ToolType>
+      <ToolNumber xmlns="">
+      </ToolNumber>
+      <ToolName xmlns="">Custom Programming Tool</ToolName>
+    </custom>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
     <ToolchainSettings>
@@ -222,6 +235,8 @@
       <Value>../hpl/sercom</Value>
       <Value>../hpl/usb</Value>
       <Value>../hri</Value>
+      <Value>../usb</Value>
+      <Value>../usb/class/cdc</Value>
       <Value>%24(PackRepoDir)\Atmel\SAME51_DFP\1.1.139\include</Value>
     </ListValues>
   </armgcc.compiler.directories.IncludePaths>
@@ -263,6 +278,8 @@
       <Value>../hpl/sercom</Value>
       <Value>../hpl/usb</Value>
       <Value>../hri</Value>
+      <Value>../usb</Value>
+      <Value>../usb/class/cdc</Value>
       <Value>%24(PackRepoDir)\Atmel\SAME51_DFP\1.1.139\include</Value>
     </ListValues>
   </armgcc.assembler.general.IncludePaths>
@@ -287,6 +304,8 @@
       <Value>../hpl/sercom</Value>
       <Value>../hpl/usb</Value>
       <Value>../hri</Value>
+      <Value>../usb</Value>
+      <Value>../usb/class/cdc</Value>
       <Value>%24(PackRepoDir)\Atmel\SAME51_DFP\1.1.139\include</Value>
     </ListValues>
   </armgcc.preprocessingassembler.general.IncludePaths>
@@ -327,6 +346,8 @@
       <Value>../hpl/sercom</Value>
       <Value>../hpl/usb</Value>
       <Value>../hri</Value>
+      <Value>../usb</Value>
+      <Value>../usb/class/cdc</Value>
       <Value>%24(PackRepoDir)\Atmel\SAME51_DFP\1.1.139\include</Value>
     </ListValues>
   </armgcc.compiler.directories.IncludePaths>
@@ -369,6 +390,8 @@
       <Value>../hpl/sercom</Value>
       <Value>../hpl/usb</Value>
       <Value>../hri</Value>
+      <Value>../usb</Value>
+      <Value>../usb/class/cdc</Value>
       <Value>%24(PackRepoDir)\Atmel\SAME51_DFP\1.1.139\include</Value>
     </ListValues>
   </armgcc.assembler.general.IncludePaths>
@@ -394,6 +417,8 @@
       <Value>../hpl/sercom</Value>
       <Value>../hpl/usb</Value>
       <Value>../hri</Value>
+      <Value>../usb</Value>
+      <Value>../usb/class/cdc</Value>
       <Value>%24(PackRepoDir)\Atmel\SAME51_DFP\1.1.139\include</Value>
     </ListValues>
   </armgcc.preprocessingassembler.general.IncludePaths>
@@ -402,6 +427,15 @@
     </ToolchainSettings>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="atmel_start.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="atmel_start.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="atmel_start_pins.h">
+      <SubType>compile</SubType>
+    </Compile>
     <Compile Include="Config\hpl_cmcc_config.h">
       <SubType>compile</SubType>
     </Compile>
@@ -439,6 +473,12 @@
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="Device_Startup\system_same51.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="driver_init.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="driver_init.h">
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="examples\driver_examples.c">
@@ -804,6 +844,30 @@
     <Compile Include="main.c">
       <SubType>compile</SubType>
     </Compile>
+    <Compile Include="usb\class\cdc\usb_protocol_cdc.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="usb\usb_atmel.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="usb\usb_debug.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="usb\usb_includes.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="usb\usb_protocol.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="usb\usb_protocol.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="usb_start.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="usb_start.h">
+      <SubType>compile</SubType>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Config\" />
@@ -829,6 +893,9 @@
     <Folder Include="hpl\sercom\" />
     <Folder Include="hpl\usb\" />
     <Folder Include="hri\" />
+    <Folder Include="usb\" />
+    <Folder Include="usb\class\" />
+    <Folder Include="usb\class\cdc\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Device_Startup\same51j19a_flash.ld">

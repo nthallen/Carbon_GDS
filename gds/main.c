@@ -1,9 +1,9 @@
-#include <atmel_start.h>
+#include <gds_driver_init.h>
 
 int main(void)
 {
 	/* Initializes MCU, drivers and middleware */
-	atmel_start_init();
+	system_init();
 
 	/* Replace with your application code */
 	while (1) {

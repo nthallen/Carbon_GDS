@@ -1,12 +1,10 @@
 /*
- * Code generated from Atmel Start.
- *
- * This file will be overwritten when reconfiguring your Atmel Start project.
- * Please copy examples or other code you want to keep to a separate file or main.c
- * to avoid loosing it when reconfiguring.
+ * This file is based on code originally generated from Atmel START as usb_start.h
+ * Whenever the Atmel START project is updated, changes to usb_start.h must be
+ * reviewed and copied here as appropriate.
  */
-#ifndef USB_DEVICE_MAIN_H
-#define USB_DEVICE_MAIN_H
+#ifndef GDS_USB_H
+#define GDS_USB_H
 
 #ifdef __cplusplus
 extern "C" {
@@ -19,7 +17,7 @@ void cdcd_acm_example(void);
 void cdc_device_acm_init(void);
 
 /**
- * \berif Initialize USB
+ * \brief Initialize USB
  */
 void usb_init(void);
 
@@ -27,4 +25,4 @@ void usb_init(void);
 }
 #endif // __cplusplus
 
-#endif // USB_DEVICE_MAIN_H
+#endif // GDS_USB_H

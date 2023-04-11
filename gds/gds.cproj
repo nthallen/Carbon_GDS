@@ -633,7 +633,13 @@
     <Compile Include="gds_driver_init.h">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="gds_start_pins.h">
+    <Compile Include="gds_pins.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="gds_usb.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="gds_usb.h">
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="hal\include\hal_atomic.h">
@@ -981,7 +987,7 @@
     <Compile Include="hri\hri_wdt_e51.h">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="main.c">
+    <Compile Include="gds_main.c">
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="serial_num.h">
@@ -1024,12 +1030,6 @@
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="usb\usb_protocol.h">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="usb_start.c">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="usb_start.h">
       <SubType>compile</SubType>
     </Compile>
   </ItemGroup>

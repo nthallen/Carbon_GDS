@@ -1,9 +1,7 @@
 /*
- * Code generated from Atmel Start.
- *
- * This file will be overwritten when reconfiguring your Atmel Start project.
- * Please copy examples or other code you want to keep to a separate file
- * to avoid losing it when reconfiguring.
+ * This file is based on code originally generated from Atmel START as driver_init.c
+ * Whenever the Atmel START project is updated, changes to driver_init.c must be
+ * reviewed and copied here as appropriate.
  */
 
 #include "gds_driver_init.h"

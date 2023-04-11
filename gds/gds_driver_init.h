@@ -1,12 +1,10 @@
 /*
- * Code generated from Atmel Start.
- *
- * This file will be overwritten when reconfiguring your Atmel Start project.
- * Please copy examples or other code you want to keep to a separate file
- * to avoid losing it when reconfiguring.
+ * This file is based on code originally generated from Atmel START as driver_init.h
+ * Whenever the Atmel START project is updated, changes to driver_init.h must be
+ * reviewed and copied here as appropriate.
  */
-#ifndef DRIVER_INIT_INCLUDED
-#define DRIVER_INIT_INCLUDED
+#ifndef GDS_DRIVER_INIT_INCLUDED
+#define GDS_DRIVER_INIT_INCLUDED
 
 #include "gds_pins.h"
 
@@ -59,4 +57,4 @@ void system_init(void);
 #ifdef __cplusplus
 }
 #endif
-#endif // DRIVER_INIT_INCLUDED
+#endif // GDS_DRIVER_INIT_INCLUDED

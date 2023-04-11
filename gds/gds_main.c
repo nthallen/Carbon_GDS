@@ -1,3 +1,11 @@
+/*
+ * This file was based on code originally generated from Atmel START in main.c, though
+ * it has been heavily modified. Nevertheless, whenever the Atmel START project is
+ * updated, any changes to main.c (which is no longer compiled into this project)
+ * should be reviewed to determine whether they should be propagated into the
+ * project.
+ */
+
 #include "gds_driver_init.h"
 #include "subbus.h"
 //#include "usb_start.h"

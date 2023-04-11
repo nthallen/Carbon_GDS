@@ -8,7 +8,7 @@
 #ifndef DRIVER_INIT_INCLUDED
 #define DRIVER_INIT_INCLUDED
 
-#include "gds_start_pins.h"
+#include "gds_pins.h"
 
 #ifdef __cplusplus
 extern "C" {

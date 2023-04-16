@@ -6,7 +6,7 @@ notice changes to the generated files, as those changes may need to
 be propagated to the copied files.
 
  - main.c: gds_main.c
- - atmel_start.[ch]: incorporated into gds_main.c
+ - atmel_start.[ch]: incorporated into gds_main.[ch]
  - atmel_start_pins.h: gds_pins.h
  - driver_init.[ch]: gds_driver_init.[ch]
  - usb_start.[ch]: gds_usb.[ch]

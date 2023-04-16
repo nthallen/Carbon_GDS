@@ -5,6 +5,7 @@
  */
 #ifndef GDS_USB_H
 #define GDS_USB_H
+#include "subbus.h"
 
 #ifdef __cplusplus
 extern "C" {
@@ -13,13 +14,13 @@ extern "C" {
 #include "cdcdf_acm.h"
 #include "cdcdf_acm_desc.h"
 
-void cdcd_acm_example(void);
 void cdc_device_acm_init(void);
 
-/**
- * \brief Initialize USB
- */
-void usb_init(void);
+subbus_driver_t sb_usb;
+#define SUBBUS_USB_BASE_ADDR 0xC
+#define SUBBUS_USB_HIGH_ADDR (SUBBUS_USB_BASE_ADDR-1)
+#define CDC_INPUT_BUFFER_SIZE 256
+#define CDC_OUTPUT_BUFFER_SIZE 256
 
 #ifdef __cplusplus
 }

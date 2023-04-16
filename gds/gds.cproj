@@ -201,19 +201,34 @@
         <NonsecureFilesInfo />
       </AcmeProjectConfig>
     </AcmeProjectConfig>
-    <avrtool>custom</avrtool>
-    <avrtoolserialnumber />
+    <avrtool>com.atmel.avrdbg.tool.atmelice</avrtool>
+    <avrtoolserialnumber>J41800051433</avrtoolserialnumber>
     <avrdeviceexpectedsignature>0x61810302</avrdeviceexpectedsignature>
     <custom>
-      <ToolOptions xmlns="">
+      <ToolOptions>
         <InterfaceProperties>
         </InterfaceProperties>
+        <InterfaceName>
+        </InterfaceName>
       </ToolOptions>
-      <ToolType xmlns="">custom</ToolType>
-      <ToolNumber xmlns="">
+      <ToolType>custom</ToolType>
+      <ToolNumber>
       </ToolNumber>
-      <ToolName xmlns="">Custom Programming Tool</ToolName>
+      <ToolName>Custom Programming Tool</ToolName>
     </custom>
+    <avrtoolinterface>SWD</avrtoolinterface>
+    <com_atmel_avrdbg_tool_atmelice>
+      <ToolOptions>
+        <InterfaceProperties>
+          <SwdClock>2000000</SwdClock>
+        </InterfaceProperties>
+        <InterfaceName>SWD</InterfaceName>
+      </ToolOptions>
+      <ToolType>com.atmel.avrdbg.tool.atmelice</ToolType>
+      <ToolNumber>J41800051433</ToolNumber>
+      <ToolName>Atmel-ICE</ToolName>
+    </com_atmel_avrdbg_tool_atmelice>
+    <avrtoolinterfaceclock>2000000</avrtoolinterfaceclock>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
     <ToolchainSettings>
@@ -498,7 +513,6 @@
   </armgcc.compiler.directories.IncludePaths>
   <armgcc.compiler.optimization.level>Optimize (-O1)</armgcc.compiler.optimization.level>
   <armgcc.compiler.optimization.PrepareFunctionsForGarbageCollection>True</armgcc.compiler.optimization.PrepareFunctionsForGarbageCollection>
-  <armgcc.compiler.optimization.GeneratePositionIndependentCode>True</armgcc.compiler.optimization.GeneratePositionIndependentCode>
   <armgcc.compiler.optimization.DebugLevel>Maximum (-g3)</armgcc.compiler.optimization.DebugLevel>
   <armgcc.compiler.warnings.AllWarnings>True</armgcc.compiler.warnings.AllWarnings>
   <armgcc.compiler.miscellaneous.OtherFlags>-std=gnu99 -mfloat-abi=softfp -mfpu=fpv4-sp-d16</armgcc.compiler.miscellaneous.OtherFlags>
@@ -993,10 +1007,19 @@
     <Compile Include="serial_num.h">
       <SubType>compile</SubType>
     </Compile>
+    <Compile Include="ser_control.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="ser_control.h">
+      <SubType>compile</SubType>
+    </Compile>
     <Compile Include="subbus.c">
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="subbus.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="usart.h">
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="usb\class\cdc\device\cdcdf_acm.c">

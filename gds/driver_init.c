@@ -11,11 +11,11 @@
 #include <utils.h>
 #include <hal_init.h>
 
-struct i2c_m_sync_desc PM_I2C;
+struct i2c_m_async_desc PM_I2C;
 
-struct i2c_m_sync_desc ADC_I2C;
+struct i2c_m_async_desc ADC_I2C;
 
-struct i2c_m_sync_desc MS_I2C;
+struct i2c_m_async_desc MS_I2C;
 
 void PM_I2C_PORT_init(void)
 {
@@ -52,7 +52,7 @@ void PM_I2C_CLOCK_init(void)
 void PM_I2C_init(void)
 {
 	PM_I2C_CLOCK_init();
-	i2c_m_sync_init(&PM_I2C, SERCOM1);
+	i2c_m_async_init(&PM_I2C, SERCOM1);
 	PM_I2C_PORT_init();
 }
 
@@ -91,7 +91,7 @@ void ADC_I2C_CLOCK_init(void)
 void ADC_I2C_init(void)
 {
 	ADC_I2C_CLOCK_init();
-	i2c_m_sync_init(&ADC_I2C, SERCOM2);
+	i2c_m_async_init(&ADC_I2C, SERCOM2);
 	ADC_I2C_PORT_init();
 }
 
@@ -130,7 +130,7 @@ void MS_I2C_CLOCK_init(void)
 void MS_I2C_init(void)
 {
 	MS_I2C_CLOCK_init();
-	i2c_m_sync_init(&MS_I2C, SERCOM3);
+	i2c_m_async_init(&MS_I2C, SERCOM3);
 	MS_I2C_PORT_init();
 }
 

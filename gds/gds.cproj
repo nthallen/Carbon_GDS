@@ -29,17 +29,18 @@
     <eraseonlaunchrule>0</eraseonlaunchrule>
     <EraseKey />
     <AsfFrameworkConfig>
-      <framework-data xmlns="">
-        <options />
-        <configurations />
-        <files />
-        <documentation help="" />
-        <offline-documentation help="" />
-        <dependencies>
-          <content-extension eid="atmel.asf" uuidref="Atmel.ASF" version="3.40.0" />
-        </dependencies>
-      </framework-data>
+      <framework-data>
+  <options />
+  <configurations />
+  <files />
+  <documentation help="" />
+  <offline-documentation help="" />
+  <dependencies>
+    <content-extension eid="atmel.asf" uuidref="Atmel.ASF" version="3.44.1" />
+  </dependencies>
+</framework-data>
     </AsfFrameworkConfig>
+    <configurator>AtmelStart</configurator>
     <atStartFilePath>.atmelstart\atmel_start_config.atstart</atStartFilePath>
     <GpdscFilePath>.atmelstart\AtmelStart.gpdsc</GpdscFilePath>
     <AcmeProjectConfig>
@@ -54,7 +55,7 @@
           <AcmeProjectActionInfo Action="File" Source="hal/include/hal_cache.h" IsConfig="false" Hash="QZIIDRbUdkb2aDtNopQSOA" />
           <AcmeProjectActionInfo Action="File" Source="hal/include/hal_delay.h" IsConfig="false" Hash="snalDV+S1QGquCV38zAdoA" />
           <AcmeProjectActionInfo Action="File" Source="hal/include/hal_gpio.h" IsConfig="false" Hash="3mBEQ9Ix28YOArddDes83Q" />
-          <AcmeProjectActionInfo Action="File" Source="hal/include/hal_i2c_m_sync.h" IsConfig="false" Hash="wYjgBbVVd/11drj/bh4EaQ" />
+          <AcmeProjectActionInfo Action="File" Source="hal/include/hal_i2c_m_async.h" IsConfig="false" Hash="re2I6y1cdl1kJYhxBoBUTQ" />
           <AcmeProjectActionInfo Action="File" Source="hal/include/hal_init.h" IsConfig="false" Hash="OrYSVpF3YA5XrOBImWpdSg" />
           <AcmeProjectActionInfo Action="File" Source="hal/include/hal_io.h" IsConfig="false" Hash="XZRSabc39WU/0MFBLYGLvQ" />
           <AcmeProjectActionInfo Action="File" Source="hal/include/hal_sleep.h" IsConfig="false" Hash="KuZDwgrLdU+fuMG82ZFTqg" />
@@ -83,7 +84,7 @@
           <AcmeProjectActionInfo Action="File" Source="hal/src/hal_cache.c" IsConfig="false" Hash="edUfxCb3WSV4Uu3oKUakCg" />
           <AcmeProjectActionInfo Action="File" Source="hal/src/hal_delay.c" IsConfig="false" Hash="vZ+YYOpHjTcAZaAaTE3Izg" />
           <AcmeProjectActionInfo Action="File" Source="hal/src/hal_gpio.c" IsConfig="false" Hash="wIzN9zQd1b8qd+RDoSkD7Q" />
-          <AcmeProjectActionInfo Action="File" Source="hal/src/hal_i2c_m_sync.c" IsConfig="false" Hash="rXHlXpjvdMJ9o6yJQwR90g" />
+          <AcmeProjectActionInfo Action="File" Source="hal/src/hal_i2c_m_async.c" IsConfig="false" Hash="D7Skbh0K93T2IP0/tKY0oA" />
           <AcmeProjectActionInfo Action="File" Source="hal/src/hal_init.c" IsConfig="false" Hash="bJvq8kpNbbOE2nZfChOGTQ" />
           <AcmeProjectActionInfo Action="File" Source="hal/src/hal_io.c" IsConfig="false" Hash="FYpavzYSxhFzVrBQtcH2ZA" />
           <AcmeProjectActionInfo Action="File" Source="hal/src/hal_sleep.c" IsConfig="false" Hash="3ebghfB3jYLpnqoi3fhq3g" />
@@ -151,11 +152,11 @@
           <AcmeProjectActionInfo Action="File" Source="usb/usb_protocol.c" IsConfig="false" Hash="506QsMNqKwMw3St/nEXa8Q" />
           <AcmeProjectActionInfo Action="File" Source="usb/usb_protocol.h" IsConfig="false" Hash="IjsDWsLIdSQj3pFlkAX0UA" />
           <AcmeProjectActionInfo Action="File" Source="main.c" IsConfig="false" Hash="k0AH7j+BrmdFhBPzCCMptA" />
-          <AcmeProjectActionInfo Action="File" Source="driver_init.c" IsConfig="false" Hash="/+SWQQdh8o/d1N0fjF0PHA" />
-          <AcmeProjectActionInfo Action="File" Source="driver_init.h" IsConfig="false" Hash="A7wqG+ZJt+lW6VCC2aYJwg" />
+          <AcmeProjectActionInfo Action="File" Source="driver_init.c" IsConfig="false" Hash="+pi8Lw+kreVLHx2K1vD0ug" />
+          <AcmeProjectActionInfo Action="File" Source="driver_init.h" IsConfig="false" Hash="H7qzjnwyfErTnSPVrmU0tg" />
           <AcmeProjectActionInfo Action="File" Source="atmel_start_pins.h" IsConfig="false" Hash="peUBYHqtFR716L27rdxkKg" />
           <AcmeProjectActionInfo Action="File" Source="examples/driver_examples.h" IsConfig="false" Hash="8h/fj13SWjCoAciltx62LQ" />
-          <AcmeProjectActionInfo Action="File" Source="examples/driver_examples.c" IsConfig="false" Hash="lClQ4w1hNU574RM/xdpysA" />
+          <AcmeProjectActionInfo Action="File" Source="examples/driver_examples.c" IsConfig="false" Hash="ZAClI+4VhTI0tOcnKcJ4uA" />
           <AcmeProjectActionInfo Action="File" Source="hal/include/hpl_missing_features.h" IsConfig="false" Hash="XsAvpgfutzkw0Y5SydYFaw" />
           <AcmeProjectActionInfo Action="File" Source="hal/include/hpl_reset.h" IsConfig="false" Hash="WwLFRlBtuZ/qnD1JuDKnRQ" />
           <AcmeProjectActionInfo Action="File" Source="hal/include/hpl_spi_m_async.h" IsConfig="false" Hash="JyMw9jeJO0jGqfT03txHXQ" />
@@ -180,7 +181,7 @@
           <AcmeProjectActionInfo Action="File" Source="hpl/pm/hpl_pm_base.h" IsConfig="false" Hash="KOec1StxUZxY/RKBDbMkpg" />
           <AcmeProjectActionInfo Action="File" Source="hpl/port/hpl_gpio_base.h" IsConfig="false" Hash="YjSLMahiT5jdYvqMYVQ8zg" />
           <AcmeProjectActionInfo Action="File" Source="hpl/ramecc/hpl_ramecc.c" IsConfig="false" Hash="pMdmwVWBg16VG8HOwA3DPw" />
-          <AcmeProjectActionInfo Action="File" Source="hpl/sercom/hpl_sercom.c" IsConfig="false" Hash="CjIu1Ksl4k1CotxZpVcqMA" />
+          <AcmeProjectActionInfo Action="File" Source="hpl/sercom/hpl_sercom.c" IsConfig="false" Hash="ZyNfmUlTXK5VLnL9jKYFjQ" />
           <AcmeProjectActionInfo Action="File" Source="hpl/usb/hpl_usb.c" IsConfig="false" Hash="7KLDdRscUPP5T0473D1Wvw" />
           <AcmeProjectActionInfo Action="File" Source="usb_start.c" IsConfig="false" Hash="Z3VoMycwi6ePlP/FidkA8w" />
           <AcmeProjectActionInfo Action="File" Source="usb_start.h" IsConfig="false" Hash="tIiPIYvUpZZo7de2aDnOew" />
@@ -268,7 +269,7 @@
       <Value>../usb/class/cdc</Value>
       <Value>../usb/class/cdc/device</Value>
       <Value>../usb/device</Value>
-      <Value>%24(PackRepoDir)\Atmel\SAME51_DFP\1.1.139\include</Value>
+      <Value>%24(PackRepoDir)\atmel\SAME51_DFP\1.1.139\include</Value>
     </ListValues>
   </armgcc.compiler.directories.IncludePaths>
   <armgcc.compiler.optimization.level>Optimize for size (-Os)</armgcc.compiler.optimization.level>
@@ -313,7 +314,7 @@
       <Value>../usb/class/cdc</Value>
       <Value>../usb/class/cdc/device</Value>
       <Value>../usb/device</Value>
-      <Value>%24(PackRepoDir)\Atmel\SAME51_DFP\1.1.139\include</Value>
+      <Value>%24(PackRepoDir)\atmel\SAME51_DFP\1.1.139\include</Value>
     </ListValues>
   </armgcc.assembler.general.IncludePaths>
   <armgcc.preprocessingassembler.general.IncludePaths>
@@ -341,7 +342,7 @@
       <Value>../usb/class/cdc</Value>
       <Value>../usb/class/cdc/device</Value>
       <Value>../usb/device</Value>
-      <Value>%24(PackRepoDir)\Atmel\SAME51_DFP\1.1.139\include</Value>
+      <Value>%24(PackRepoDir)\atmel\SAME51_DFP\1.1.139\include</Value>
     </ListValues>
   </armgcc.preprocessingassembler.general.IncludePaths>
 </ArmGcc>
@@ -385,7 +386,7 @@
       <Value>../usb/class/cdc</Value>
       <Value>../usb/class/cdc/device</Value>
       <Value>../usb/device</Value>
-      <Value>%24(PackRepoDir)\Atmel\SAME51_DFP\1.1.139\include</Value>
+      <Value>%24(PackRepoDir)\atmel\SAME51_DFP\1.1.139\include</Value>
     </ListValues>
   </armgcc.compiler.directories.IncludePaths>
   <armgcc.compiler.optimization.level>Optimize (-O1)</armgcc.compiler.optimization.level>
@@ -433,7 +434,7 @@
       <Value>../usb/class/cdc</Value>
       <Value>../usb/class/cdc/device</Value>
       <Value>../usb/device</Value>
-      <Value>%24(PackRepoDir)\Atmel\SAME51_DFP\1.1.139\include</Value>
+      <Value>%24(PackRepoDir)\atmel\SAME51_DFP\1.1.139\include</Value>
     </ListValues>
   </armgcc.assembler.general.IncludePaths>
   <armgcc.assembler.debugging.DebugLevel>Default (-g)</armgcc.assembler.debugging.DebugLevel>
@@ -462,7 +463,7 @@
       <Value>../usb/class/cdc</Value>
       <Value>../usb/class/cdc/device</Value>
       <Value>../usb/device</Value>
-      <Value>%24(PackRepoDir)\Atmel\SAME51_DFP\1.1.139\include</Value>
+      <Value>%24(PackRepoDir)\atmel\SAME51_DFP\1.1.139\include</Value>
     </ListValues>
   </armgcc.preprocessingassembler.general.IncludePaths>
   <armgcc.preprocessingassembler.debugging.DebugLevel>Default (-Wa,-g)</armgcc.preprocessingassembler.debugging.DebugLevel>
@@ -508,7 +509,7 @@
       <Value>../usb/class/cdc</Value>
       <Value>../usb/class/cdc/device</Value>
       <Value>../usb/device</Value>
-      <Value>%24(PackRepoDir)\Atmel\SAME51_DFP\1.1.139\include</Value>
+      <Value>%24(PackRepoDir)\atmel\SAME51_DFP\1.1.139\include</Value>
     </ListValues>
   </armgcc.compiler.directories.IncludePaths>
   <armgcc.compiler.optimization.level>Optimize (-O1)</armgcc.compiler.optimization.level>
@@ -555,7 +556,7 @@
       <Value>../usb/class/cdc</Value>
       <Value>../usb/class/cdc/device</Value>
       <Value>../usb/device</Value>
-      <Value>%24(PackRepoDir)\Atmel\SAME51_DFP\1.1.139\include</Value>
+      <Value>%24(PackRepoDir)\atmel\SAME51_DFP\1.1.139\include</Value>
     </ListValues>
   </armgcc.assembler.general.IncludePaths>
   <armgcc.assembler.debugging.DebugLevel>Default (-g)</armgcc.assembler.debugging.DebugLevel>
@@ -584,7 +585,7 @@
       <Value>../usb/class/cdc</Value>
       <Value>../usb/class/cdc/device</Value>
       <Value>../usb/device</Value>
-      <Value>%24(PackRepoDir)\Atmel\SAME51_DFP\1.1.139\include</Value>
+      <Value>%24(PackRepoDir)\atmel\SAME51_DFP\1.1.139\include</Value>
     </ListValues>
   </armgcc.preprocessingassembler.general.IncludePaths>
   <armgcc.preprocessingassembler.debugging.DebugLevel>Default (-Wa,-g)</armgcc.preprocessingassembler.debugging.DebugLevel>
@@ -593,6 +594,15 @@
     <OutputPath>bin\SN1_Debug\</OutputPath>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="atmel_start.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="atmel_start.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="atmel_start_pins.h">
+      <SubType>compile</SubType>
+    </Compile>
     <Compile Include="Config\hpl_cmcc_config.h">
       <SubType>compile</SubType>
     </Compile>
@@ -635,6 +645,12 @@
     <Compile Include="Device_Startup\system_same51.c">
       <SubType>compile</SubType>
     </Compile>
+    <Compile Include="driver_init.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="driver_init.h">
+      <SubType>compile</SubType>
+    </Compile>
     <Compile Include="examples\driver_examples.c">
       <SubType>compile</SubType>
     </Compile>
@@ -656,6 +672,9 @@
     <Compile Include="gds_usb.h">
       <SubType>compile</SubType>
     </Compile>
+    <Compile Include="gds_main.c">
+      <SubType>compile</SubType>
+    </Compile>
     <Compile Include="hal\include\hal_atomic.h">
       <SubType>compile</SubType>
     </Compile>
@@ -668,7 +687,7 @@
     <Compile Include="hal\include\hal_gpio.h">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="hal\include\hal_i2c_m_sync.h">
+    <Compile Include="hal\include\hal_i2c_m_async.h">
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="hal\include\hal_init.h">
@@ -782,7 +801,7 @@
     <Compile Include="hal\src\hal_gpio.c">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="hal\src\hal_i2c_m_sync.c">
+    <Compile Include="hal\src\hal_i2c_m_async.c">
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="hal\src\hal_init.c">
@@ -1001,7 +1020,7 @@
     <Compile Include="hri\hri_wdt_e51.h">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="gds_main.c">
+    <Compile Include="main.c">
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="serial_num.h">
@@ -1055,12 +1074,20 @@
     <Compile Include="usb\usb_protocol.h">
       <SubType>compile</SubType>
     </Compile>
+    <Compile Include="usb_start.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="usb_start.h">
+      <SubType>compile</SubType>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Config\" />
     <Folder Include="Device_Startup\" />
+    <Folder Include="documentation\" />
     <Folder Include="examples\" />
     <Folder Include="hal\" />
+    <Folder Include="hal\documentation\" />
     <Folder Include="hal\include\" />
     <Folder Include="hal\src\" />
     <Folder Include="hal\utils\" />
@@ -1091,6 +1118,24 @@
       <SubType>compile</SubType>
     </None>
     <None Include="Device_Startup\same51j19a_sram.ld">
+      <SubType>compile</SubType>
+    </None>
+    <None Include="documentation\usb_device_cdc.rst">
+      <SubType>compile</SubType>
+    </None>
+    <None Include="documentation\usb_device_core.rst">
+      <SubType>compile</SubType>
+    </None>
+    <None Include="documentation\usb_protocol_cdc.rst">
+      <SubType>compile</SubType>
+    </None>
+    <None Include="documentation\usb_protocol_core.rst">
+      <SubType>compile</SubType>
+    </None>
+    <None Include="hal\documentation\i2c_master_async.rst">
+      <SubType>compile</SubType>
+    </None>
+    <None Include="hal\documentation\usb_device_async.rst">
       <SubType>compile</SubType>
     </None>
     <None Include="usb\class\cdc\device\atmel_devices_cdc.cat">

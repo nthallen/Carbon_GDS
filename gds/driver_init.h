@@ -21,31 +21,31 @@ extern "C" {
 #include <hal_io.h>
 #include <hal_sleep.h>
 
-#include <hal_i2c_m_sync.h>
+#include <hal_i2c_m_async.h>
 
-#include <hal_i2c_m_sync.h>
+#include <hal_i2c_m_async.h>
 
-#include <hal_i2c_m_sync.h>
+#include <hal_i2c_m_async.h>
 
 #include "hal_usb_device.h"
 
-extern struct i2c_m_sync_desc PM_I2C;
+extern struct i2c_m_async_desc PM_I2C;
 
-extern struct i2c_m_sync_desc ADC_I2C;
+extern struct i2c_m_async_desc ADC_I2C;
 
-extern struct i2c_m_sync_desc MS_I2C;
+extern struct i2c_m_async_desc MS_I2C;
 
+void PM_I2C_PORT_init(void);
 void PM_I2C_CLOCK_init(void);
 void PM_I2C_init(void);
-void PM_I2C_PORT_init(void);
 
+void ADC_I2C_PORT_init(void);
 void ADC_I2C_CLOCK_init(void);
 void ADC_I2C_init(void);
-void ADC_I2C_PORT_init(void);
 
+void MS_I2C_PORT_init(void);
 void MS_I2C_CLOCK_init(void);
 void MS_I2C_init(void);
-void MS_I2C_PORT_init(void);
 
 void USB_CTRL_CLOCK_init(void);
 void USB_CTRL_init(void);

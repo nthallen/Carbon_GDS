@@ -987,9 +987,9 @@ drivers:
       domain_group: null
   PM_I2C:
     user_label: PM_I2C
-    definition: Atmel:SAME51_Drivers:0.0.1::SAME51J19A-MF::SERCOM1::driver_config_definition::I2C.Master.Standard~2FFast-mode::HAL:Driver:I2C.Master.Sync
+    definition: Atmel:SAME51_Drivers:0.0.1::SAME51J19A-MF::SERCOM1::driver_config_definition::I2C.Master.Standard~2FFast-mode::HAL:Driver:I2C.Master.Async
     functionality: I2C
-    api: HAL:Driver:I2C_Master_Sync
+    api: HAL:Driver:I2C_Master_Async
     configuration:
       i2c_master_advanced: false
       i2c_master_arch_dbgstop: Keep running
@@ -1027,9 +1027,9 @@ drivers:
           slow_gclk_selection: Generic clock generator 3
   ADC_I2C:
     user_label: ADC_I2C
-    definition: Atmel:SAME51_Drivers:0.0.1::SAME51J19A-MF::SERCOM2::driver_config_definition::I2C.Master.Standard~2FFast-mode::HAL:Driver:I2C.Master.Sync
+    definition: Atmel:SAME51_Drivers:0.0.1::SAME51J19A-MF::SERCOM2::driver_config_definition::I2C.Master.Standard~2FFast-mode::HAL:Driver:I2C.Master.Async
     functionality: I2C
-    api: HAL:Driver:I2C_Master_Sync
+    api: HAL:Driver:I2C_Master_Async
     configuration:
       i2c_master_advanced: false
       i2c_master_arch_dbgstop: Keep running
@@ -1067,9 +1067,9 @@ drivers:
           slow_gclk_selection: Generic clock generator 3
   MS_I2C:
     user_label: MS_I2C
-    definition: Atmel:SAME51_Drivers:0.0.1::SAME51J19A-MF::SERCOM3::driver_config_definition::I2C.Master.Standard~2FFast-mode::HAL:Driver:I2C.Master.Sync
+    definition: Atmel:SAME51_Drivers:0.0.1::SAME51J19A-MF::SERCOM3::driver_config_definition::I2C.Master.Standard~2FFast-mode::HAL:Driver:I2C.Master.Async
     functionality: I2C
-    api: HAL:Driver:I2C_Master_Sync
+    api: HAL:Driver:I2C_Master_Async
     configuration:
       i2c_master_advanced: false
       i2c_master_arch_dbgstop: Keep running

@@ -1149,41 +1149,95 @@ drivers:
         configuration:
           usb_gclk_selection: Generic clock generator 0
 pads:
-  PA12:
+  INV_ARM:
+    name: PA04
+    definition: Atmel:SAME51_Drivers:0.0.1::SAME51J19A-MF::pad::PA04
+    mode: Digital output
+    user_label: INV_ARM
+    configuration: null
+  CKT3_EN:
+    name: PA06
+    definition: Atmel:SAME51_Drivers:0.0.1::SAME51J19A-MF::pad::PA06
+    mode: Digital output
+    user_label: CKT3_EN
+    configuration: null
+  ADC_SDA:
     name: PA12
     definition: Atmel:SAME51_Drivers:0.0.1::SAME51J19A-MF::pad::PA12
     mode: I2C
-    user_label: PA12
+    user_label: ADC_SDA
     configuration: null
-  PA13:
+  ADC_SCL:
     name: PA13
     definition: Atmel:SAME51_Drivers:0.0.1::SAME51J19A-MF::pad::PA13
     mode: I2C
-    user_label: PA13
+    user_label: ADC_SCL
     configuration: null
-  PA16:
+  CO2_EXH:
+    name: PA14
+    definition: Atmel:SAME51_Drivers:0.0.1::SAME51J19A-MF::pad::PA14
+    mode: Digital output
+    user_label: CO2_EXH
+    configuration: null
+  C3P_SDA:
     name: PA16
     definition: Atmel:SAME51_Drivers:0.0.1::SAME51J19A-MF::pad::PA16
     mode: I2C
-    user_label: PA16
+    user_label: C3P_SDA
     configuration: null
-  PA17:
+  C3P_SCL:
     name: PA17
     definition: Atmel:SAME51_Drivers:0.0.1::SAME51J19A-MF::pad::PA17
     mode: I2C
-    user_label: PA17
+    user_label: C3P_SCL
     configuration: null
-  PA22:
+  CO2_REF:
+    name: PA18
+    definition: Atmel:SAME51_Drivers:0.0.1::SAME51J19A-MF::pad::PA18
+    mode: Digital output
+    user_label: CO2_REF
+    configuration: null
+  CAL_REF:
+    name: PA19
+    definition: Atmel:SAME51_Drivers:0.0.1::SAME51J19A-MF::pad::PA19
+    mode: Digital output
+    user_label: CAL_REF
+    configuration: null
+  CO2_PUMP:
+    name: PB16
+    definition: Atmel:SAME51_Drivers:0.0.1::SAME51J19A-MF::pad::PB16
+    mode: Digital output
+    user_label: CO2_PUMP
+    configuration: null
+  MM_EXH:
+    name: PB17
+    definition: Atmel:SAME51_Drivers:0.0.1::SAME51J19A-MF::pad::PB17
+    mode: Digital output
+    user_label: MM_EXH
+    configuration: null
+  CAL_LO:
+    name: PA20
+    definition: Atmel:SAME51_Drivers:0.0.1::SAME51J19A-MF::pad::PA20
+    mode: Digital output
+    user_label: CAL_LO
+    configuration: null
+  CAL_HI:
+    name: PA21
+    definition: Atmel:SAME51_Drivers:0.0.1::SAME51J19A-MF::pad::PA21
+    mode: Digital output
+    user_label: CAL_HI
+    configuration: null
+  MS_SDA:
     name: PA22
     definition: Atmel:SAME51_Drivers:0.0.1::SAME51J19A-MF::pad::PA22
     mode: I2C
-    user_label: PA22
+    user_label: MS_SDA
     configuration: null
-  PA23:
+  MS_SCL:
     name: PA23
     definition: Atmel:SAME51_Drivers:0.0.1::SAME51J19A-MF::pad::PA23
     mode: I2C
-    user_label: PA23
+    user_label: MS_SCL
     configuration: null
   PA24:
     name: PA24
@@ -1196,6 +1250,18 @@ pads:
     definition: Atmel:SAME51_Drivers:0.0.1::SAME51J19A-MF::pad::PA25
     mode: Advanced
     user_label: PA25
+    configuration: null
+  MM_PUMP:
+    name: PB22
+    definition: Atmel:SAME51_Drivers:0.0.1::SAME51J19A-MF::pad::PB22
+    mode: Digital output
+    user_label: MM_PUMP
+    configuration: null
+  CAL_SPR:
+    name: PB23
+    definition: Atmel:SAME51_Drivers:0.0.1::SAME51J19A-MF::pad::PB23
+    mode: Digital output
+    user_label: CAL_SPR
     configuration: null
 toolchain_options: []
 static_files: []

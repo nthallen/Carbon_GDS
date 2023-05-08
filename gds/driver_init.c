@@ -20,7 +20,7 @@ struct i2c_m_async_desc MS_I2C;
 void PM_I2C_PORT_init(void)
 {
 
-	gpio_set_pin_pull_mode(PA16,
+	gpio_set_pin_pull_mode(C3P_SDA,
 	                       // <y> Pull configuration
 	                       // <id> pad_pull_config
 	                       // <GPIO_PULL_OFF"> Off
@@ -28,9 +28,9 @@ void PM_I2C_PORT_init(void)
 	                       // <GPIO_PULL_DOWN"> Pull-down
 	                       GPIO_PULL_OFF);
 
-	gpio_set_pin_function(PA16, PINMUX_PA16C_SERCOM1_PAD0);
+	gpio_set_pin_function(C3P_SDA, PINMUX_PA16C_SERCOM1_PAD0);
 
-	gpio_set_pin_pull_mode(PA17,
+	gpio_set_pin_pull_mode(C3P_SCL,
 	                       // <y> Pull configuration
 	                       // <id> pad_pull_config
 	                       // <GPIO_PULL_OFF"> Off
@@ -38,7 +38,7 @@ void PM_I2C_PORT_init(void)
 	                       // <GPIO_PULL_DOWN"> Pull-down
 	                       GPIO_PULL_OFF);
 
-	gpio_set_pin_function(PA17, PINMUX_PA17C_SERCOM1_PAD1);
+	gpio_set_pin_function(C3P_SCL, PINMUX_PA17C_SERCOM1_PAD1);
 }
 
 void PM_I2C_CLOCK_init(void)
@@ -59,7 +59,7 @@ void PM_I2C_init(void)
 void ADC_I2C_PORT_init(void)
 {
 
-	gpio_set_pin_pull_mode(PA12,
+	gpio_set_pin_pull_mode(ADC_SDA,
 	                       // <y> Pull configuration
 	                       // <id> pad_pull_config
 	                       // <GPIO_PULL_OFF"> Off
@@ -67,9 +67,9 @@ void ADC_I2C_PORT_init(void)
 	                       // <GPIO_PULL_DOWN"> Pull-down
 	                       GPIO_PULL_OFF);
 
-	gpio_set_pin_function(PA12, PINMUX_PA12C_SERCOM2_PAD0);
+	gpio_set_pin_function(ADC_SDA, PINMUX_PA12C_SERCOM2_PAD0);
 
-	gpio_set_pin_pull_mode(PA13,
+	gpio_set_pin_pull_mode(ADC_SCL,
 	                       // <y> Pull configuration
 	                       // <id> pad_pull_config
 	                       // <GPIO_PULL_OFF"> Off
@@ -77,7 +77,7 @@ void ADC_I2C_PORT_init(void)
 	                       // <GPIO_PULL_DOWN"> Pull-down
 	                       GPIO_PULL_OFF);
 
-	gpio_set_pin_function(PA13, PINMUX_PA13C_SERCOM2_PAD1);
+	gpio_set_pin_function(ADC_SCL, PINMUX_PA13C_SERCOM2_PAD1);
 }
 
 void ADC_I2C_CLOCK_init(void)
@@ -98,7 +98,7 @@ void ADC_I2C_init(void)
 void MS_I2C_PORT_init(void)
 {
 
-	gpio_set_pin_pull_mode(PA22,
+	gpio_set_pin_pull_mode(MS_SDA,
 	                       // <y> Pull configuration
 	                       // <id> pad_pull_config
 	                       // <GPIO_PULL_OFF"> Off
@@ -106,9 +106,9 @@ void MS_I2C_PORT_init(void)
 	                       // <GPIO_PULL_DOWN"> Pull-down
 	                       GPIO_PULL_OFF);
 
-	gpio_set_pin_function(PA22, PINMUX_PA22C_SERCOM3_PAD0);
+	gpio_set_pin_function(MS_SDA, PINMUX_PA22C_SERCOM3_PAD0);
 
-	gpio_set_pin_pull_mode(PA23,
+	gpio_set_pin_pull_mode(MS_SCL,
 	                       // <y> Pull configuration
 	                       // <id> pad_pull_config
 	                       // <GPIO_PULL_OFF"> Off
@@ -116,7 +116,7 @@ void MS_I2C_PORT_init(void)
 	                       // <GPIO_PULL_DOWN"> Pull-down
 	                       GPIO_PULL_OFF);
 
-	gpio_set_pin_function(PA23, PINMUX_PA23C_SERCOM3_PAD1);
+	gpio_set_pin_function(MS_SCL, PINMUX_PA23C_SERCOM3_PAD1);
 }
 
 void MS_I2C_CLOCK_init(void)
@@ -252,6 +252,160 @@ void USB_CTRL_init(void)
 void system_init(void)
 {
 	init_mcu();
+
+	// GPIO on PA04
+
+	gpio_set_pin_level(INV_ARM,
+	                   // <y> Initial level
+	                   // <id> pad_initial_level
+	                   // <false"> Low
+	                   // <true"> High
+	                   false);
+
+	// Set pin direction to output
+	gpio_set_pin_direction(INV_ARM, GPIO_DIRECTION_OUT);
+
+	gpio_set_pin_function(INV_ARM, GPIO_PIN_FUNCTION_OFF);
+
+	// GPIO on PA06
+
+	gpio_set_pin_level(CKT3_EN,
+	                   // <y> Initial level
+	                   // <id> pad_initial_level
+	                   // <false"> Low
+	                   // <true"> High
+	                   false);
+
+	// Set pin direction to output
+	gpio_set_pin_direction(CKT3_EN, GPIO_DIRECTION_OUT);
+
+	gpio_set_pin_function(CKT3_EN, GPIO_PIN_FUNCTION_OFF);
+
+	// GPIO on PA14
+
+	gpio_set_pin_level(CO2_EXH,
+	                   // <y> Initial level
+	                   // <id> pad_initial_level
+	                   // <false"> Low
+	                   // <true"> High
+	                   false);
+
+	// Set pin direction to output
+	gpio_set_pin_direction(CO2_EXH, GPIO_DIRECTION_OUT);
+
+	gpio_set_pin_function(CO2_EXH, GPIO_PIN_FUNCTION_OFF);
+
+	// GPIO on PA18
+
+	gpio_set_pin_level(CO2_REF,
+	                   // <y> Initial level
+	                   // <id> pad_initial_level
+	                   // <false"> Low
+	                   // <true"> High
+	                   false);
+
+	// Set pin direction to output
+	gpio_set_pin_direction(CO2_REF, GPIO_DIRECTION_OUT);
+
+	gpio_set_pin_function(CO2_REF, GPIO_PIN_FUNCTION_OFF);
+
+	// GPIO on PA19
+
+	gpio_set_pin_level(CAL_REF,
+	                   // <y> Initial level
+	                   // <id> pad_initial_level
+	                   // <false"> Low
+	                   // <true"> High
+	                   false);
+
+	// Set pin direction to output
+	gpio_set_pin_direction(CAL_REF, GPIO_DIRECTION_OUT);
+
+	gpio_set_pin_function(CAL_REF, GPIO_PIN_FUNCTION_OFF);
+
+	// GPIO on PA20
+
+	gpio_set_pin_level(CAL_LO,
+	                   // <y> Initial level
+	                   // <id> pad_initial_level
+	                   // <false"> Low
+	                   // <true"> High
+	                   false);
+
+	// Set pin direction to output
+	gpio_set_pin_direction(CAL_LO, GPIO_DIRECTION_OUT);
+
+	gpio_set_pin_function(CAL_LO, GPIO_PIN_FUNCTION_OFF);
+
+	// GPIO on PA21
+
+	gpio_set_pin_level(CAL_HI,
+	                   // <y> Initial level
+	                   // <id> pad_initial_level
+	                   // <false"> Low
+	                   // <true"> High
+	                   false);
+
+	// Set pin direction to output
+	gpio_set_pin_direction(CAL_HI, GPIO_DIRECTION_OUT);
+
+	gpio_set_pin_function(CAL_HI, GPIO_PIN_FUNCTION_OFF);
+
+	// GPIO on PB16
+
+	gpio_set_pin_level(CO2_PUMP,
+	                   // <y> Initial level
+	                   // <id> pad_initial_level
+	                   // <false"> Low
+	                   // <true"> High
+	                   false);
+
+	// Set pin direction to output
+	gpio_set_pin_direction(CO2_PUMP, GPIO_DIRECTION_OUT);
+
+	gpio_set_pin_function(CO2_PUMP, GPIO_PIN_FUNCTION_OFF);
+
+	// GPIO on PB17
+
+	gpio_set_pin_level(MM_EXH,
+	                   // <y> Initial level
+	                   // <id> pad_initial_level
+	                   // <false"> Low
+	                   // <true"> High
+	                   false);
+
+	// Set pin direction to output
+	gpio_set_pin_direction(MM_EXH, GPIO_DIRECTION_OUT);
+
+	gpio_set_pin_function(MM_EXH, GPIO_PIN_FUNCTION_OFF);
+
+	// GPIO on PB22
+
+	gpio_set_pin_level(MM_PUMP,
+	                   // <y> Initial level
+	                   // <id> pad_initial_level
+	                   // <false"> Low
+	                   // <true"> High
+	                   false);
+
+	// Set pin direction to output
+	gpio_set_pin_direction(MM_PUMP, GPIO_DIRECTION_OUT);
+
+	gpio_set_pin_function(MM_PUMP, GPIO_PIN_FUNCTION_OFF);
+
+	// GPIO on PB23
+
+	gpio_set_pin_level(CAL_SPR,
+	                   // <y> Initial level
+	                   // <id> pad_initial_level
+	                   // <false"> Low
+	                   // <true"> High
+	                   false);
+
+	// Set pin direction to output
+	gpio_set_pin_direction(CAL_SPR, GPIO_DIRECTION_OUT);
+
+	gpio_set_pin_function(CAL_SPR, GPIO_PIN_FUNCTION_OFF);
 
 	PM_I2C_init();
 

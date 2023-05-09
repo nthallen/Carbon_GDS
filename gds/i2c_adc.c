@@ -99,27 +99,42 @@ static subbus_cache_word_t i2c_adc_cache[I2C_HIGH_ADDR-I2C_BASE_ADDR+1] = {
 
 // static uint8_t ads_slave_addr[ADC_NDEVS] = { 0x48, 0x49, 0x4A, 0x4B }; // 7-bit i2c address
 
-static uint8_t ads_cfg[ADC_NDEVS][4] = {
-  { { 0x48, 0x01, 0xC1, 0x03 }, //  AIN0: CAL_HI_HP ±6.144V
-	{ 0x48, 0x01, 0xD1, 0x03 }, //  AIN1: CAL_HI_LP ±6.144V
-	{ 0x48, 0x01, 0xE1, 0x03 }, //  AIN2: CAL_LO_HP ±6.144V
-	{ 0x48, 0x01, 0xF1, 0x03 }  //  AIN3: CAL_LO_LP ±6.144V
+typedef struct {
+  uint8_t cfg[3];
+} ch_cfg;
+
+typedef struct {
+  uint8_t adr;
+  ch_cfg chan[4];
+} dev_cfg;
+
+// Don't think we need the third level nested struct, but I'm probably wrong
+/* typedef struct {
+  dev_cfg ads1115[4];
+} adc_cfg;
+ */
+ 
+static dev_cfg ads_cfg[4] = {
+  { 0x48, { { 0x01, 0xC1, 0x03 },   //  AIN0: CAL_HI_HP ±6.144V
+			{ 0x01, 0xD1, 0x03 },   //  AIN1: CAL_HI_LP ±6.144V
+			{ 0x01, 0xE1, 0x03 },   //  AIN2: CAL_LO_HP ±6.144V
+			{ 0x01, 0xF1, 0x03 } }, //  AIN3: CAL_LO_LP ±6.144V
   },
-  { { 0x49, 0x01, 0xC1, 0x03 }, //  AIN4: REF_HP ±6.144V
-	{ 0x49, 0x01, 0xD1, 0x03 }, //  AIN5: REF_LP ±6.144V
-	{ 0x49, 0x01, 0xE3, 0x03 }, //  AIN6: ROV1_T ±4.096V
-	{ 0x49, 0x01, 0xF3, 0x03 }  //  AIN7: ROV2_T ±4.096V
+  { 0x49, { { 0x01, 0xC1, 0x03 },   //  AIN4: REF_HP ±6.144V
+			{ 0x01, 0xD1, 0x03 },   //  AIN5: REF_LP ±6.144V
+			{ 0x01, 0xE3, 0x03 },   //  AIN6: ROV1_T ±4.096V
+			{ 0x01, 0xF3, 0x03 } }, //  AIN7: ROV2_T ±4.096V
   },
-  { { 0x4A, 0x01, 0xC3, 0x03 }, //  AIN8: CO2_MOT_T ±4.096V
-	{ 0x4A, 0x01, 0xD3, 0x03 }, //  AIN9: CO2_PUMP_T ±4.096V
-	{ 0x4A, 0x01, 0xE3, 0x03 }, // AIN10: MM_MOT_T ±4.096V
-	{ 0x4A, 0x01, 0xF3, 0x03 }  // AIN11: MM_PUMP_T ±4.096V
+  { 0x4A, { { 0x01, 0xC3, 0x03 },   //  AIN8: CO2_MOT_T ±4.096V
+			{ 0x01, 0xD3, 0x03 },   //  AIN9: CO2_PUMP_T ±4.096V
+			{ 0x01, 0xE3, 0x03 },   // AIN10: MM_MOT_T ±4.096V
+			{ 0x01, 0xF3, 0x03 } }, // AIN11: MM_PUMP_T ±4.096V
   },
-  { { 0x4B, 0x01, 0xC3, 0x03 }, // AIN12: ROV3_T ±4.096V
-	{ 0x4B, 0x01, 0xD3, 0x03 }, // AIN13: ROV4_T ±4.096V
-	{ 0x4B, 0x01, 0xE3, 0x03 }, // AIN14: ROV5_T ±4.096V
-	{ 0x4B, 0x01, 0xF3, 0x03 }  // AIN15: ROV6_T ±4.096V
-  }
+  { 0x4B, { { 0x01, 0xC3, 0x03 },   // AIN12: ROV3_T ±4.096V
+			{ 0x01, 0xD3, 0x03 },   // AIN13: ROV4_T ±4.096V
+			{ 0x01, 0xE3, 0x03 },   // AIN14: ROV5_T ±4.096V
+			{ 0x01, 0xF3, 0x03 } }  // AIN15: ROV6_T ±4.096V
+  },
 };
 
 enum ads_state_t {ads_init, ads_read_cfg,
@@ -130,11 +145,10 @@ static enum ads_state_t ads_state = ads_init;
 static uint16_t ads_n_reads;
 
 
-
 static uint8_t ads_r0_prep[1] = { 0x00 };
 static uint8_t ads_ibuf[2];
-static int ads_devnum = 0 ;
-static int ads_chnum = 0 ;
+static int devnum = 0 ;
+static int chnum = 0 ;
 
 /**
  * @return true if the bus is free and available for another device
@@ -144,22 +158,21 @@ static bool ads1115_poll(void) {
   switch (ads_state) {
     case ads_init: // Start to convert AINx
       ads_n_reads = 0;
-      i2c_write(ads_cfg[ads_devnum*ADC_NDEVS+ads_chnum,0], 
-        ads_cfg[ads_devnum*ADC_NDEVS+ads_chnum,1], 3);
-      if (ads_devnum < ADC_NDEVS-1 ) {	// Once per ADS1115 device
-        ++ads_devnum;
+      i2c_write(ads_cfg[devnum].adr, ads_cfg[devnum].chan[chnum].cfg, 3);
+      if (devnum < ADC_NDEVS-1 ) {	// Once per ADS1115 device
+        ++devnum;
       } else {
-        ads_devnum = 0;
+        devnum = 0;
         ads_state = ads_read_cfg;
       }
       return true;
     case ads_read_cfg: // Start read from config register
-      i2c_read(ads_cfg[ads_devnum*ADC_NDEVS+ads_chnum,0], ads_ibuf, 2);
+      i2c_read(ads_cfg[devnum].adr, ads_ibuf, 2);
       if (ads_ibuf[0] & 0x80) { // If high bit is set, conversion is complete
-	    if (ads_devnum < ADC_NDEVS-1 ) {	// Once per ADS1115 device
-		  ++ads_devnum;
+	    if (devnum < ADC_NDEVS-1 ) {	// Once per ADS1115 device
+		  ++devnum;
 	    } else {
-		  ads_devnum = 0;
+		  devnum = 0;
           ads_state = ads_reg0;
         }
       } else {
@@ -168,28 +181,28 @@ static bool ads1115_poll(void) {
       }
       return true;
     case ads_reg0: // Write pointer register to read from conversion reg[0]
-      i2c_write(ads_cfg[ads_devnum*ADC_NDEVS+ads_chnum,0], ads_r0_prep, 1);
-	  if (ads_devnum < ADC_NDEVS-1 ) {	// Once per ADS1115 device
-	    ++ads_devnum;
+      i2c_write(ads_cfg[devnum].adr, ads_r0_prep, 1);
+	  if (devnum < ADC_NDEVS-1 ) {	// Once per ADS1115 device
+	    ++devnum;
 	  } else {
-	      ads_devnum = 0;
+	      devnum = 0;
           ads_state = ads_read_adc;
       }
       return false;
     case ads_read_adc: // Start read from conversion reg
-      i2c_read(ads_cfg[ads_devnum*ADC_NDEVS+ads_chnum,0], ads_ibuf, 2);
+      i2c_read(ads_cfg[devnum].adr, ads_ibuf, 2);
       ads_state = ads_cache;
       return false;
     case ads_cache:
       sb_cache_update(i2c_adc_cache, // Save converted value
-        I2C_ADS_OFFSET + ads_devnum * 2 + (ads_devnum >= 2 ? 1 : 0),
+        I2C_ADS_OFFSET + devnum * 2 + (devnum >= 2 ? 1 : 0),
         (ads_ibuf[0] << 8) | ads_ibuf[1]);
       sb_cache_update(i2c_adc_cache, I2C_ADS_OFFSET+8, ads_n_reads);
-    if (ads_devnum < ADC_NDEVS-1 ) {
-      ++ads_devnum;
+    if (devnum < ADC_NDEVS-1 ) {
+      ++devnum;
       ads_state = ads_read_adc;
     } else {
-      ads_devnum = 0;
+      devnum = 0;
       ads_state = ads_init;
       if (++chnum > ADC_NCHS-1) chnum = 0;  // Do for each channel
     }

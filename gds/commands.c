@@ -1,52 +1,65 @@
 #include "commands.h"
 #include "serial_num.h"
 #include "subbus.h"
+#ifdef TIMED_COMMANDS
 #include "rtc_timer.h"
+#endif
 
 static void commands_init(void) {
-  gpio_set_pin_level(CAL_HI, false);
-  gpio_set_pin_direction(CAL_HI, GPIO_DIRECTION_OUT);
-  gpio_set_pin_function(CAL_HI, GPIO_PIN_FUNCTION_OFF);
+	// GPIO on PA04
+	gpio_set_pin_level(INV_ARM, false);
+	gpio_set_pin_direction(INV_ARM, GPIO_DIRECTION_OUT);
+	gpio_set_pin_function(INV_ARM, GPIO_PIN_FUNCTION_OFF);
 
-  gpio_set_pin_level(PPWR_CNTL, false);
-  gpio_set_pin_direction(PPWR_CNTL, GPIO_DIRECTION_OUT);
-  gpio_set_pin_function(PPWR_CNTL, GPIO_PIN_FUNCTION_OFF);
+	// GPIO on PA06
+	gpio_set_pin_level(CKT3_EN, false);
+	gpio_set_pin_direction(CKT3_EN, GPIO_DIRECTION_OUT);
+	gpio_set_pin_function(CKT3_EN, GPIO_PIN_FUNCTION_OFF);
 
-  gpio_set_pin_level(CAL_REF, false);
-  gpio_set_pin_direction(CAL_REF, GPIO_DIRECTION_OUT);
-  gpio_set_pin_function(CAL_REF, GPIO_PIN_FUNCTION_OFF);
+	// GPIO on PA14
+	gpio_set_pin_level(CO2_EXH, false);
+	gpio_set_pin_direction(CO2_EXH, GPIO_DIRECTION_OUT);
+	gpio_set_pin_function(CO2_EXH, GPIO_PIN_FUNCTION_OFF);
 
-  gpio_set_pin_level(PPWR_CNTL, false);
-  gpio_set_pin_direction(PPWR_CNTL, GPIO_DIRECTION_OUT);
-  gpio_set_pin_function(PPWR_CNTL, GPIO_PIN_FUNCTION_OFF);
+	// GPIO on PA18
+	gpio_set_pin_level(CO2_REF, false);
+	gpio_set_pin_direction(CO2_REF, GPIO_DIRECTION_OUT);
+	gpio_set_pin_function(CO2_REF, GPIO_PIN_FUNCTION_OFF);
 
-  gpio_set_pin_level(CAL_SPR, false);
-  gpio_set_pin_direction(CAL_SPR, GPIO_DIRECTION_OUT);
-  gpio_set_pin_function(CAL_SPR, GPIO_PIN_FUNCTION_OFF);
+	// GPIO on PA19
+	gpio_set_pin_level(CAL_REF, false);
+	gpio_set_pin_direction(CAL_REF, GPIO_DIRECTION_OUT);
+	gpio_set_pin_function(CAL_REF, GPIO_PIN_FUNCTION_OFF);
 
-  gpio_set_pin_level(PPWR_CNTL, false);
-  gpio_set_pin_direction(PPWR_CNTL, GPIO_DIRECTION_OUT);
-  gpio_set_pin_function(PPWR_CNTL, GPIO_PIN_FUNCTION_OFF);
+	// GPIO on PA20
+	gpio_set_pin_level(CAL_LO, false);
+	gpio_set_pin_direction(CAL_LO, GPIO_DIRECTION_OUT);
+	gpio_set_pin_function(CAL_LO, GPIO_PIN_FUNCTION_OFF);
 
-  gpio_set_pin_level(MM_EXH, false);
-  gpio_set_pin_direction(MM_EXH, GPIO_DIRECTION_OUT);
-  gpio_set_pin_function(MM_EXH, GPIO_PIN_FUNCTION_OFF);
+	// GPIO on PA21
+	gpio_set_pin_level(CAL_HI, false);
+	gpio_set_pin_direction(CAL_HI, GPIO_DIRECTION_OUT);
+	gpio_set_pin_function(CAL_HI, GPIO_PIN_FUNCTION_OFF);
 
-  gpio_set_pin_level(PPWR_CNTL, false);
-  gpio_set_pin_direction(PPWR_CNTL, GPIO_DIRECTION_OUT);
-  gpio_set_pin_function(PPWR_CNTL, GPIO_PIN_FUNCTION_OFF);
+	// GPIO on PB16
+	gpio_set_pin_level(CO2_PUMP, false);
+	gpio_set_pin_direction(CO2_PUMP, GPIO_DIRECTION_OUT);
+	gpio_set_pin_function(CO2_PUMP, GPIO_PIN_FUNCTION_OFF);
 
-  gpio_set_pin_level(CO2_EXH, false);
-  gpio_set_pin_direction(CO2_EXH, GPIO_DIRECTION_OUT);
-  gpio_set_pin_function(CO2_EXH, GPIO_PIN_FUNCTION_OFF);
+	// GPIO on PB17
+	gpio_set_pin_level(MM_EXH, false);
+	gpio_set_pin_direction(MM_EXH, GPIO_DIRECTION_OUT);
+	gpio_set_pin_function(MM_EXH, GPIO_PIN_FUNCTION_OFF);
 
-  gpio_set_pin_level(PPWR_CNTL, false);
-  gpio_set_pin_direction(PPWR_CNTL, GPIO_DIRECTION_OUT);
-  gpio_set_pin_function(PPWR_CNTL, GPIO_PIN_FUNCTION_OFF);
+	// GPIO on PB22
+	gpio_set_pin_level(MM_PUMP, false);
+	gpio_set_pin_direction(MM_PUMP, GPIO_DIRECTION_OUT);
+	gpio_set_pin_function(MM_PUMP, GPIO_PIN_FUNCTION_OFF);
 
-  gpio_set_pin_level(INV_ARM, false);
-  gpio_set_pin_direction(INV_ARM, GPIO_DIRECTION_OUT);
-  gpio_set_pin_function(INV_ARM, GPIO_PIN_FUNCTION_OFF);
+	// GPIO on PB23
+	gpio_set_pin_level(CAL_SPR, false);
+	gpio_set_pin_direction(CAL_SPR, GPIO_DIRECTION_OUT);
+	gpio_set_pin_function(CAL_SPR, GPIO_PIN_FUNCTION_OFF);
 
 }
 

@@ -10,6 +10,7 @@
 #include "subbus.h"
 #include "ser_control.h"
 #include "gds_usb.h"
+#include "commands.h"
 
 int main(void)
 {
@@ -22,10 +23,10 @@ int main(void)
    || subbus_add_driver(&sb_board_desc)
    || subbus_add_driver(&sb_control)
    || subbus_add_driver(&sb_usb)
+   || subbus_add_driver(&sb_cmd)
 // || subbus_add_driver(&sb_spi)
 // || subbus_add_driver(&sb_rtc)
 // || subbus_add_driver(&sb_ps_spi)
-// || subbus_add_driver(&sb_cmd)
   ) {
     while (true) ; // some driver is misconfigured.
   }

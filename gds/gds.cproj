@@ -203,7 +203,7 @@
       </AcmeProjectConfig>
     </AcmeProjectConfig>
     <avrtool>com.atmel.avrdbg.tool.atmelice</avrtool>
-    <avrtoolserialnumber>J41800051433</avrtoolserialnumber>
+    <avrtoolserialnumber>J42700013716</avrtoolserialnumber>
     <avrdeviceexpectedsignature>0x61810302</avrdeviceexpectedsignature>
     <custom>
       <ToolOptions>
@@ -226,7 +226,7 @@
         <InterfaceName>SWD</InterfaceName>
       </ToolOptions>
       <ToolType>com.atmel.avrdbg.tool.atmelice</ToolType>
-      <ToolNumber>J41800051433</ToolNumber>
+      <ToolNumber>J42700013716</ToolNumber>
       <ToolName>Atmel-ICE</ToolName>
     </com_atmel_avrdbg_tool_atmelice>
     <avrtoolinterfaceclock>2000000</avrtoolinterfaceclock>
@@ -594,6 +594,12 @@
     <OutputPath>bin\SN1_Debug\</OutputPath>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="commands.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="commands.h">
+      <SubType>compile</SubType>
+    </Compile>
     <Compile Include="Config\hpl_cmcc_config.h">
       <SubType>compile</SubType>
     </Compile>

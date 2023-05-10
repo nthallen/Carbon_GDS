@@ -57,7 +57,8 @@ fprintf(1,'Description from FIFO is: %s\n', desc);
 %%
 % Read the ADS1115 ADC Section
 adc_adr = 32;   % 0x20 
-rm_obj = read_multi_prep([adc_adr,1,41]); % [0x20,1,0x29]
+adc_nch = 16;   % 16 channels total
+rm_obj = read_multi_prep([adc_adr,1,(adc_adr+adc_nch-1)]); % [0x20,1,0x30]
 %
 % while true
 for iadc=1:10

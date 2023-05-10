@@ -1011,6 +1011,12 @@
     <Compile Include="hri\hri_wdt_e51.h">
       <SubType>compile</SubType>
     </Compile>
+    <Compile Include="i2c.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="i2c_adc.c">
+      <SubType>compile</SubType>
+    </Compile>
     <Compile Include="serial_num.h">
       <SubType>compile</SubType>
     </Compile>

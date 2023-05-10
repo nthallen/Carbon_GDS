@@ -1,10 +1,10 @@
 /** @file i2c_adc.c Carbon_GDS */
-#include "driver_temp.h"
+#include "gds_driver_init.h"
 #include <utils.h>
 #include <hal_init.h>
 #include <hal_i2c_m_async.h>
 #include <stdint.h>
-#include "uDACS_pins.h"
+#include "gds_pins.h"
 #include "i2c.h"
 #include "subbus.h"
 
@@ -45,7 +45,7 @@ static void i2c_read(int16_t i2c_addr, uint8_t *ibuf, int16_t nbytes);
  * 0x30 R:  AIN15
  * 0x31 R:  N_reads before conversion complete
  */
-static subbus_cache_word_t i2c_adc_cache[I2C_HIGH_ADDR-I2C_BASE_ADDR+1] = {
+static subbus_cache_word_t i2c_adc_cache[I2C_ADC_HIGH_ADDR-I2C_ADC_BASE_ADDR+1] = {
   // Value, Wvalue, readable, was_read, writable, written, dynamic
   // I2C Status I2C_STATUS_NREGS
   { 0, 0, true,  false,  false, false, false }, // Offset 0: R: I2C Status
@@ -115,26 +115,26 @@ typedef struct {
  */
  
 static dev_cfg ads_cfg[4] = {
-  { 0x48, { { 0x01, 0xC1, 0x03 },   //  AIN0: CAL_HI_HP ±6.144V
-			{ 0x01, 0xD1, 0x03 },   //  AIN1: CAL_HI_LP ±6.144V
-			{ 0x01, 0xE1, 0x03 },   //  AIN2: CAL_LO_HP ±6.144V
-			{ 0x01, 0xF1, 0x03 } }, //  AIN3: CAL_LO_LP ±6.144V
-  },
-  { 0x49, { { 0x01, 0xC1, 0x03 },   //  AIN4: REF_HP ±6.144V
-			{ 0x01, 0xD1, 0x03 },   //  AIN5: REF_LP ±6.144V
-			{ 0x01, 0xE3, 0x03 },   //  AIN6: ROV1_T ±4.096V
-			{ 0x01, 0xF3, 0x03 } }, //  AIN7: ROV2_T ±4.096V
-  },
-  { 0x4A, { { 0x01, 0xC3, 0x03 },   //  AIN8: CO2_MOT_T ±4.096V
-			{ 0x01, 0xD3, 0x03 },   //  AIN9: CO2_PUMP_T ±4.096V
-			{ 0x01, 0xE3, 0x03 },   // AIN10: MM_MOT_T ±4.096V
-			{ 0x01, 0xF3, 0x03 } }, // AIN11: MM_PUMP_T ±4.096V
-  },
-  { 0x4B, { { 0x01, 0xC3, 0x03 },   // AIN12: ROV3_T ±4.096V
-			{ 0x01, 0xD3, 0x03 },   // AIN13: ROV4_T ±4.096V
-			{ 0x01, 0xE3, 0x03 },   // AIN14: ROV5_T ±4.096V
-			{ 0x01, 0xF3, 0x03 } }  // AIN15: ROV6_T ±4.096V
-  },
+  { 0x48, { { { 0x01, 0xC1, 0x03 } },   //  AIN0: CAL_HI_HP ±6.144V
+			{ { 0x01, 0xD1, 0x03 } },   //  AIN1: CAL_HI_LP ±6.144V
+			{ { 0x01, 0xE1, 0x03 } },   //  AIN2: CAL_LO_HP ±6.144V
+			{ { 0x01, 0xF1, 0x03 } } }  //  AIN3: CAL_LO_LP ±6.144V
+  },                            
+  { 0x49, { { { 0x01, 0xC1, 0x03 } },   //  AIN4: REF_HP ±6.144V
+			{ { 0x01, 0xD1, 0x03 } },   //  AIN5: REF_LP ±6.144V
+			{ { 0x01, 0xE3, 0x03 } },   //  AIN6: ROV1_T ±4.096V
+			{ { 0x01, 0xF3, 0x03 } } }  //  AIN7: ROV2_T ±4.096V
+  },                            
+  { 0x4A, { { { 0x01, 0xC3, 0x03 } },   //  AIN8: CO2_MOT_T ±4.096V
+			{ { 0x01, 0xD3, 0x03 } },   //  AIN9: CO2_PUMP_T ±4.096V
+			{ { 0x01, 0xE3, 0x03 } },   // AIN10: MM_MOT_T ±4.096V
+			{ { 0x01, 0xF3, 0x03 } } }  // AIN11: MM_PUMP_T ±4.096V
+  },                            
+  { 0x4B, { { { 0x01, 0xC3, 0x03 } },   // AIN12: ROV3_T ±4.096V
+			{ { 0x01, 0xD3, 0x03 } },   // AIN13: ROV4_T ±4.096V
+			{ { 0x01, 0xE3, 0x03 } },   // AIN14: ROV5_T ±4.096V
+			{ { 0x01, 0xF3, 0x03 } } }  // AIN15: ROV6_T ±4.096V
+  }
 };
 
 enum ads_state_t {ads_init, ads_read_cfg,
@@ -154,7 +154,7 @@ static int chnum = 0 ;
  * @return true if the bus is free and available for another device
  */
 static bool ads1115_poll(void) {
-  if ( !i2c_enabled || !I2C_txfr_complete ) return;  
+  if ( !i2c_enabled || !I2C_txfr_complete ) return true;  
   switch (ads_state) {
     case ads_init: // Start to convert AINx
       ads_n_reads = 0;
@@ -195,9 +195,9 @@ static bool ads1115_poll(void) {
       return false;
     case ads_cache:
       sb_cache_update(i2c_adc_cache, // Save converted value
-        I2C_ADS_OFFSET + devnum * 2 + (devnum >= 2 ? 1 : 0),
+        I2C_ADC_ADS_OFFSET + devnum * 2 + (devnum >= 2 ? 1 : 0),
         (ads_ibuf[0] << 8) | ads_ibuf[1]);
-      sb_cache_update(i2c_adc_cache, I2C_ADS_OFFSET+8, ads_n_reads);
+      sb_cache_update(i2c_adc_cache, I2C_ADC_ADS_OFFSET+8, ads_n_reads);
     if (devnum < ADC_NDEVS-1 ) {
       ++devnum;
       ads_state = ads_read_adc;
@@ -216,14 +216,14 @@ static bool ads1115_poll(void) {
 static void i2c_write(int16_t i2c_addr, const uint8_t *obuf, int16_t nbytes) {
   assert(I2C_txfr_complete, __FILE__, __LINE__);
   I2C_txfr_complete = false;
-  i2c_m_async_set_slaveaddr(&DADC_I2C, i2c_addr, I2C_M_SEVEN);
+  i2c_m_async_set_slaveaddr(&ADC_I2C, i2c_addr, I2C_M_SEVEN);
   io_write(I2C_io, obuf, nbytes);
 }
 
 static void i2c_read(int16_t i2c_addr, uint8_t *ibuf, int16_t nbytes) {
   assert(I2C_txfr_complete, __FILE__, __LINE__);
   I2C_txfr_complete = false;
-  i2c_m_async_set_slaveaddr(&DADC_I2C, i2c_addr, I2C_M_SEVEN);
+  i2c_m_async_set_slaveaddr(&ADC_I2C, i2c_addr, I2C_M_SEVEN);
   io_read(I2C_io, ibuf, nbytes);
 }
 
@@ -237,17 +237,17 @@ static void I2C_async_error(struct i2c_m_async_desc *const i2c, int32_t error) {
   I2C_txfr_complete = true;
   I2C_error_seen = true;
   I2C_error = error;
-  if (sb_cache_was_read(i2c_adc_cache, I2C_STATUS_OFFSET)) {
-    sb_cache_update(i2c_adc_cache, I2C_STATUS_OFFSET, 0);
+  if (sb_cache_was_read(i2c_adc_cache, I2C_ADC_STATUS_OFFSET)) {
+    sb_cache_update(i2c_adc_cache, I2C_ADC_STATUS_OFFSET, 0);
   }
   if (I2C_error >= -7 && I2C_error <= -2) {
-    uint16_t val = i2c_adc_cache[I2C_STATUS_OFFSET].cache;
+    uint16_t val = i2c_adc_cache[I2C_ADC_STATUS_OFFSET].cache;
     val |= (1 << (7+I2C_error));
-    sb_cache_update(i2c_adc_cache, I2C_STATUS_OFFSET, val);
+    sb_cache_update(i2c_adc_cache, I2C_ADC_STATUS_OFFSET, val);
   }
   if (error == I2C_ERR_BUS) {
-    hri_sercomi2cm_write_STATUS_reg(DADC_I2C.device.hw, SERCOM_I2CM_STATUS_BUSERR);
-    hri_sercomi2cm_clear_INTFLAG_reg(DADC_I2C.device.hw, I2C_INTFLAG_ERROR);
+    hri_sercomi2cm_write_STATUS_reg(ADC_I2C.device.hw, SERCOM_I2CM_STATUS_BUSERR);
+    hri_sercomi2cm_clear_INTFLAG_reg(ADC_I2C.device.hw, I2C_INTFLAG_ERROR);
   }
 }
 
@@ -255,23 +255,23 @@ static void I2C_txfr_completed(struct i2c_m_async_desc *const i2c) {
   I2C_txfr_complete = true;
 }
 
-static void i2c_reset() {
-  if (!sb_i2c.initialized) {
+static void i2c_adc_reset() {
+  if (!sb_i2c_adc.initialized) {
     // I2C_init(); // Called from driver_init
-    i2c_m_async_get_io_descriptor(&DADC_I2C, &I2C_io);
-    i2c_m_async_enable(&DADC_I2C);
-    i2c_m_async_register_callback(&DADC_I2C, I2C_M_ASYNC_ERROR, (FUNC_PTR)I2C_async_error);
-    i2c_m_async_register_callback(&DADC_I2C, I2C_M_ASYNC_TX_COMPLETE, (FUNC_PTR)I2C_txfr_completed);
-    i2c_m_async_register_callback(&DADC_I2C, I2C_M_ASYNC_RX_COMPLETE, (FUNC_PTR)I2C_txfr_completed);
+    i2c_m_async_get_io_descriptor(&ADC_I2C, &I2C_io);
+    i2c_m_async_enable(&ADC_I2C);
+    i2c_m_async_register_callback(&ADC_I2C, I2C_M_ASYNC_ERROR, (FUNC_PTR)I2C_async_error);
+    i2c_m_async_register_callback(&ADC_I2C, I2C_M_ASYNC_TX_COMPLETE, (FUNC_PTR)I2C_txfr_completed);
+    i2c_m_async_register_callback(&ADC_I2C, I2C_M_ASYNC_RX_COMPLETE, (FUNC_PTR)I2C_txfr_completed);
 
-    sb_i2c.initialized = true;
+    sb_i2c_adc.initialized = true;
   }
 }
 
 enum i2c_state_t {i2c_ads1115, i2c_extra };
 static enum i2c_state_t i2c_state = i2c_ads1115;
 
-void i2c_poll(void) {
+void i2c_adc_poll(void) {
   enum i2c_state_t input_state = i2c_state;
   while (i2c_enabled && I2C_txfr_complete) {
     switch (i2c_state) {

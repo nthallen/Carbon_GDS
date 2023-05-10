@@ -11,6 +11,7 @@
 #include "ser_control.h"
 #include "gds_usb.h"
 #include "commands.h"
+#include "i2c.h"
 
 int main(void)
 {
@@ -24,6 +25,7 @@ int main(void)
    || subbus_add_driver(&sb_control)
    || subbus_add_driver(&sb_usb)
    || subbus_add_driver(&sb_cmd)
+   || subbus_add_driver(&sb_i2c_adc)
 // || subbus_add_driver(&sb_spi)
 // || subbus_add_driver(&sb_rtc)
 // || subbus_add_driver(&sb_ps_spi)

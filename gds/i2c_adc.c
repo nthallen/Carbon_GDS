@@ -159,52 +159,44 @@ static bool ads1115_poll(void) {
     case ads_init: // Start to convert AINx
       ads_n_reads = 0;
       i2c_write(ads_cfg[devnum].adr, ads_cfg[devnum].chan[chnum].cfg, 3);
-      if (devnum < ADC_NDEVS-1 ) {	// Once per ADS1115 device
+	  if (devnum < ADC_NDEVS-1 ) {	// Start up all ADS1115 devices
         ++devnum;
-      } else {
+	  } else {
         devnum = 0;
         ads_state = ads_read_cfg;
       }
-      return true;
+      return false;
     case ads_read_cfg: // Start read from config register
       i2c_read(ads_cfg[devnum].adr, ads_ibuf, 2);
       if (ads_ibuf[0] & 0x80) { // If high bit is set, conversion is complete
-	    if (devnum < ADC_NDEVS-1 ) {	// Once per ADS1115 device
-		  ++devnum;
-	    } else {
-		  devnum = 0;
-          ads_state = ads_reg0;
-        }
+        ads_state = ads_reg0;
+        return false;
       } else {
         ++ads_n_reads;  // nreads now accumulated across all ADS1115's
         ads_state = ads_read_cfg;
+        return true;
       }
       return true;
     case ads_reg0: // Write pointer register to read from conversion reg[0]
       i2c_write(ads_cfg[devnum].adr, ads_r0_prep, 1);
-	  if (devnum < ADC_NDEVS-1 ) {	// Once per ADS1115 device
-	    ++devnum;
-	  } else {
-	      devnum = 0;
-          ads_state = ads_read_adc;
-      }
+      ads_state = ads_read_adc;
       return false;
     case ads_read_adc: // Start read from conversion reg
       i2c_read(ads_cfg[devnum].adr, ads_ibuf, 2);
       ads_state = ads_cache;
-      return false;
+      return true;
     case ads_cache:
-      sb_cache_update(i2c_adc_cache, // Save converted value
-        I2C_ADC_ADS_OFFSET + devnum * 2 + (devnum >= 2 ? 1 : 0),
-        (ads_ibuf[0] << 8) | ads_ibuf[1]);
-      sb_cache_update(i2c_adc_cache, I2C_ADC_ADS_OFFSET+8, ads_n_reads);
+      sb_cache_update(i2c_adc_cache, I2C_ADC_ADS_OFFSET + (devnum * 4) + chnum, 
+        (ads_ibuf[0] << 8) | ads_ibuf[1]); // Save converted value
+      sb_cache_update(i2c_adc_cache, I2C_ADC_ADS_OFFSET + I2C_ADC_ADS_NREGS, 
+        ads_n_reads); // Save n_reads
     if (devnum < ADC_NDEVS-1 ) {
       ++devnum;
-      ads_state = ads_read_adc;
+      ads_state = ads_read_cfg;
     } else {
       devnum = 0;
-      ads_state = ads_init;
       if (++chnum > ADC_NCHS-1) chnum = 0;  // Do for each channel
+      ads_state = ads_init;
     }
       return true;
     default:

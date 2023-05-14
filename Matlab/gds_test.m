@@ -58,15 +58,15 @@ fprintf(1,'Description from FIFO is: %s\n', desc);
 % Read the ADS1115 ADC Section
 adc_adr = 32;   % 0x20 
 adc_nch = 16;   % 16 channels total
-rm_obj = read_multi_prep([adc_adr,1,(adc_adr+adc_nch-1)]); % [0x20,1,0x30]
+rm_obj = read_multi_prep([adc_adr,1,(adc_adr+adc_nch+1)]); % [0x20,1,0x31]
 %
 % while true
 for iadc=1:10
   
   [vals,~] = read_multi(s,rm_obj);
   
-  fprintf(1,'---------\n');
-  fprintf(1,'%04X %d\n', vals(1),vals(end));
+  fprintf(1,'--------- Read %d ---------\n', iadc);
+  fprintf(1,'Status %04X : N_Reads %d\n', vals(1),vals(end));
   adc = vals(2:end-1);
   sadc = adc - (adc>2^15)*2^16;
   vref = 4.096;

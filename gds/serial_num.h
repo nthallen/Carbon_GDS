@@ -10,6 +10,7 @@
  *         Specified in EverNote "Gas Deck Shield Specs" Table 1
  *     0: Test
  *     1: FOCAL Gas Deck Shield
+ *     2: FOCAL Optical Enclosure Shield
  *     SUBBUS_SUBFUNCTION may be the same as SUBBUS_BOARD_ID if there is no significant
  *     configuration difference between boards. If different, the SUBBUS_BOARD_ID values
  *     should be documented along with the SUBBUS_BOARD_SN etc. in the board's Specifications document
@@ -61,11 +62,27 @@
 #define SUBBUS_BOARD_BOARD_REV "Rev A"
 
 #if SUBBUS_BOARD_SN == 1
-  #define SUBBUS_BOARD_ID 0 // Test:
+  #define SUBBUS_BOARD_ID 0 // Test
   #define SUBBUS_BOARD_BOARD_TYPE "Gas Deck Shield"
   #define SUBBUS_BOARD_INSTRUMENT_ID 10
   #define SUBBUS_BOARD_INSTRUMENT "FOCAL"
   #define SUBBUS_BOARD_LOCATION "Gas Deck"
+#endif
+
+#if SUBBUS_BOARD_SN == 2
+  #define SUBBUS_BOARD_ID 2 // OE
+  #define SUBBUS_BOARD_BOARD_TYPE "Optical Enclosure Shield"
+  #define SUBBUS_BOARD_INSTRUMENT_ID 10
+  #define SUBBUS_BOARD_INSTRUMENT "FOCAL"
+  #define SUBBUS_BOARD_LOCATION "CO2"
+#endif
+
+#if SUBBUS_BOARD_SN == 3
+  #define SUBBUS_BOARD_ID 2 // OE
+  #define SUBBUS_BOARD_BOARD_TYPE "Optical Enclosure Shield"
+  #define SUBBUS_BOARD_INSTRUMENT_ID 10
+  #define SUBBUS_BOARD_INSTRUMENT "FOCAL"
+  #define SUBBUS_BOARD_LOCATION "Methane"
 #endif
 
 #if ! defined(SUBBUS_BOARD_ID)

@@ -16,7 +16,7 @@
 int main(void)
 {
 	/* Initializes MCU, drivers and middleware */
-	system_init();
+	init_mcu();
 // usb_init();
 
   if (subbus_add_driver(&sb_base)
@@ -26,6 +26,8 @@ int main(void)
    || subbus_add_driver(&sb_usb)
    || subbus_add_driver(&sb_cmd)
    || subbus_add_driver(&sb_i2c_adc)
+// || subbus_add_driver(&sb_i2c_ms)
+// || subbus_add_driver(&sb_i2c_pm)
 // || subbus_add_driver(&sb_spi)
 // || subbus_add_driver(&sb_rtc)
 // || subbus_add_driver(&sb_ps_spi)

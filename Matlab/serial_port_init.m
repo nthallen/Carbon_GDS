@@ -15,8 +15,8 @@ if nargout > 1
 end
 if (nargin < 1 || isempty(port))
   port = '';
-  if exist('./uDACS16SerialPort.mat','file')
-    rport = load('./uDACS16SerialPort.mat');
+  if exist('./gdsSerialPort.mat','file')
+    rport = load('./gdsSerialPort.mat');
     if isfield(rport,'port')
       port = rport.port;
     end
@@ -24,6 +24,7 @@ if (nargin < 1 || isempty(port))
   end
 end
 
+% hw = serialportlist('serial');
 hw = instrhwinfo('serial');
 if isempty(hw.AvailableSerialPorts)
   port = '';
@@ -39,12 +40,12 @@ end
 if isempty(port)
   if isempty(hw.AvailableSerialPorts)
     % closereq;
-    h = errordlg('No serial port found','uDACS16 Serial Port Error','modal');
+    h = errordlg('No serial port found','gds Serial Port Error','modal');
     uiwait(h);
     return;
   else
     sel = listdlg('ListString',hw.AvailableSerialPorts,...
-      'SelectionMode','single','Name','uDACS16_Port', ...
+      'SelectionMode','single','Name','gds_Port', ...
       'PromptString','Select Serial Port:', ...
       'ListSize',[160 50]);
     if isempty(sel)
@@ -52,7 +53,7 @@ if isempty(port)
       return;
     else
       port = hw.AvailableSerialPorts{sel};
-      save uDACS16SerialPort.mat port
+      save gdsSerialPort.mat port
     end
   end
 end
@@ -79,7 +80,7 @@ try
 catch ME
   h = errordlg(sprintf('Error: %s\nMessage: %s\nport = %s\n', ...
     ME.identifier, ME.message, port), ...
-    'uDACS16 Serial Port Error', 'modal');
+    'gds Serial Port Error', 'modal');
   uiwait(h);
   if isopen
     fclose(s);

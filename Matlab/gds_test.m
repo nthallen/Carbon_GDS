@@ -69,7 +69,8 @@ for iadc=1:10
   fprintf(1,'Status %04X : N_Reads %d\n', vals(1),vals(end));
   adc = vals(2:end-1);
   sadc = adc - (adc>2^15)*2^16;
-  vref = [ 6.144 6.144 6.144 6.144 6.144 6.144 4.096 4.096 4.096 4.096 4.096 4.096 4.096 4.096 4.096 4.096 ];
+% Vref is individually set for each channel: 
+  vref = [ 6.144; 6.144; 6.144; 6.144; 6.144; 6.144; 4.096; 4.096; 4.096; 4.096; 4.096; 4.096; 4.096; 4.096; 4.096; 4.096 ];
   vadc = vref .* sadc / (2^15);
   Rpu = 75e3;
   Rth = Rpu * vadc ./ (vref-vadc);

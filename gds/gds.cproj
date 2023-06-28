@@ -648,12 +648,6 @@
     <Compile Include="examples\driver_examples.h">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="gds_driver_init.c">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="gds_driver_init.h">
-      <SubType>compile</SubType>
-    </Compile>
     <Compile Include="gds_pins.h">
       <SubType>compile</SubType>
     </Compile>

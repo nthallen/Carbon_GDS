@@ -16,7 +16,7 @@
 int main(void)
 {
 	/* Initializes MCU, drivers and middleware */
-	system_init();
+	init_mcu();
 // usb_init();
 
   if (subbus_add_driver(&sb_base)

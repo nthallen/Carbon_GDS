@@ -3,9 +3,48 @@
  * Whenever the Atmel START project is updated, changes to usb_start.c must be
  * reviewed and copied here as appropriate.
  */
-#include "gds_driver_init.h"
+#include <peripheral_clk_config.h>
+#include <utils.h>
+#include <hal_init.h>
+
 #include "gds_usb.h"
 #include "usart.h"
+
+// USB Driver
+void USB_CTRL_PORT_init(void)
+{
+	gpio_set_pin_direction(PA24, GPIO_DIRECTION_OUT);
+	gpio_set_pin_level(PA24, false);
+	gpio_set_pin_pull_mode(PA24, GPIO_PULL_OFF);
+	gpio_set_pin_function(PA24, PINMUX_PA24H_USB_DM);
+
+	gpio_set_pin_direction(PA25, GPIO_DIRECTION_OUT);
+	gpio_set_pin_level(PA25, false);
+	gpio_set_pin_pull_mode(PA25, GPIO_PULL_OFF);
+	gpio_set_pin_function(PA25, PINMUX_PA25H_USB_DP);
+}
+
+/* The USB module requires a GCLK_USB of 48 MHz ~ 0.25% clock
+ * for low speed and full speed operation. */
+#if (CONF_GCLK_USB_FREQUENCY > (48000000 + 48000000 / 400)) || (CONF_GCLK_USB_FREQUENCY < (48000000 - 48000000 / 400))
+#warning USB clock should be 48MHz ~ 0.25% clock, check your configuration!
+#endif
+
+void USB_CTRL_CLOCK_init(void)
+{
+
+	hri_gclk_write_PCHCTRL_reg(GCLK, USB_GCLK_ID, CONF_GCLK_USB_SRC | GCLK_PCHCTRL_CHEN);
+	hri_mclk_set_AHBMASK_USB_bit(MCLK);
+	hri_mclk_set_APBBMASK_USB_bit(MCLK);
+}
+
+void USB_CTRL_init(void)
+{
+	USB_CTRL_CLOCK_init();
+	usb_d_init();
+	USB_CTRL_PORT_init();
+}
+// End of USB Driver
 
 volatile bool pending_read = false;
 volatile bool pending_write = false;
@@ -152,6 +191,7 @@ typedef enum {USB_Init, USB_Enabled, USB_Run} sb_usb_state_t;
 static sb_usb_state_t sb_usb_state = USB_Init;
 
 static void sb_usb_reset() {
+	USB_CTRL_init();
 	cdc_device_acm_init();
 }
 

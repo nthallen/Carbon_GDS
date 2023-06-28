@@ -1,12 +1,22 @@
-/** @file i2c_adc.c Carbon_GDS */
-#include "gds_driver_init.h"
+/************************************************************************/
+/* 1:16 PM 5/24/2023	file i2c_adc.c Carbon_GDS
+	
+	Feather based Carbon Gas Deck Shield board ADS1115 Driver 
+	16 Single -ended channels. Custom range per channel. 
+	
+	NOTE: Needs RTC timer module for delays
+
+ ************************************************************************/
 #include <utils.h>
+#include <peripheral_clk_config.h>
 #include <hal_init.h>
 #include <hal_i2c_m_async.h>
 #include <stdint.h>
 #include "gds_pins.h"
 #include "i2c.h"
 #include "subbus.h"
+
+struct i2c_m_async_desc ADC_I2C;
 
 static bool i2c_enabled = I2C_ADC_ENABLE_DEFAULT;
 static struct io_descriptor *I2C_io;
@@ -205,6 +215,8 @@ static bool ads1115_poll(void) {
   return true;
 }
 
+// i2c functions
+
 static void i2c_write(int16_t i2c_addr, const uint8_t *obuf, int16_t nbytes) {
   assert(I2C_txfr_complete, __FILE__, __LINE__);
   I2C_txfr_complete = false;
@@ -249,7 +261,7 @@ static void I2C_txfr_completed(struct i2c_m_async_desc *const i2c) {
 
 static void i2c_adc_reset() {
   if (!sb_i2c_adc.initialized) {
-    // I2C_init(); // Called from driver_init
+    ADC_I2C_init(); 
     i2c_m_async_get_io_descriptor(&ADC_I2C, &I2C_io);
     i2c_m_async_enable(&ADC_I2C);
     i2c_m_async_register_callback(&ADC_I2C, I2C_M_ASYNC_ERROR, (FUNC_PTR)I2C_async_error);
@@ -259,6 +271,35 @@ static void i2c_adc_reset() {
     sb_i2c_adc.initialized = true;
   }
 }
+//  End of I2C functions
+
+//	ADC_I2C Driver
+void ADC_I2C_PORT_init(void)
+{
+	gpio_set_pin_pull_mode(ADC_SDA, GPIO_PULL_OFF);
+	gpio_set_pin_function(ADC_SDA, PINMUX_PA12C_SERCOM2_PAD0);
+
+	gpio_set_pin_pull_mode(ADC_SCL, GPIO_PULL_OFF);
+	gpio_set_pin_function(ADC_SCL, PINMUX_PA13C_SERCOM2_PAD1);
+}
+
+void ADC_I2C_CLOCK_init(void)
+{
+	hri_gclk_write_PCHCTRL_reg(GCLK, SERCOM2_GCLK_ID_CORE, CONF_GCLK_SERCOM2_CORE_SRC | (1 << GCLK_PCHCTRL_CHEN_Pos));
+	hri_gclk_write_PCHCTRL_reg(GCLK, SERCOM2_GCLK_ID_SLOW, CONF_GCLK_SERCOM2_SLOW_SRC | (1 << GCLK_PCHCTRL_CHEN_Pos));
+
+	hri_mclk_set_APBBMASK_SERCOM2_bit(MCLK);
+}
+
+void ADC_I2C_init(void)
+{
+	ADC_I2C_CLOCK_init();
+	i2c_m_async_init(&ADC_I2C, SERCOM2);
+	ADC_I2C_PORT_init();
+}
+//	End of ADC_I2C Driver
+
+// Main poll loop
 
 enum i2c_state_t {i2c_ads1115, i2c_extra };
 static enum i2c_state_t i2c_state = i2c_ads1115;

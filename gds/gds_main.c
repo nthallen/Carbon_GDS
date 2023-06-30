@@ -12,6 +12,7 @@
 #include "gds_usb.h"
 #include "commands.h"
 #include "i2c.h"
+#include "rtc_timer.h"
 
 int main(void)
 {
@@ -26,8 +27,8 @@ int main(void)
    || subbus_add_driver(&sb_usb)
    || subbus_add_driver(&sb_cmd)
    || subbus_add_driver(&sb_i2c_adc)
+   || subbus_add_driver(&sb_rtc)
 // || subbus_add_driver(&sb_spi)
-// || subbus_add_driver(&sb_rtc)
 // || subbus_add_driver(&sb_ps_spi)
   ) {
     while (true) ; // some driver is misconfigured.

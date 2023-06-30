@@ -18,6 +18,8 @@ void ADC_I2C_example(void);
 
 void MS_I2C_example(void);
 
+void TIMER_0_example(void);
+
 #ifdef __cplusplus
 }
 #endif

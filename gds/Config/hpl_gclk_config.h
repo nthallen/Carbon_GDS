@@ -84,7 +84,7 @@
 // <i> Indicates whether generic clock 1 configuration is enabled or not
 // <id> enable_gclk_gen_1
 #ifndef CONF_GCLK_GENERATOR_1_CONFIG
-#define CONF_GCLK_GENERATOR_1_CONFIG 0
+#define CONF_GCLK_GENERATOR_1_CONFIG 1
 #endif
 
 // <h> Generic Clock Generator Control
@@ -121,7 +121,7 @@
 // <i> Indicates whether Output Enable is enabled or not
 // <id> gclk_arch_gen_1_oe
 #ifndef CONF_GCLK_GEN_1_OE
-#define CONF_GCLK_GEN_1_OE 0
+#define CONF_GCLK_GEN_1_OE 1
 #endif
 
 // <q> Output Off Value
@@ -142,7 +142,7 @@
 // <i> Indicates whether Generic Clock Generator Enable is enabled or not
 // <id> gclk_arch_gen_1_enable
 #ifndef CONF_GCLK_GEN_1_GENEN
-#define CONF_GCLK_GEN_1_GENEN 0
+#define CONF_GCLK_GEN_1_GENEN 1
 #endif
 // </h>
 
@@ -150,7 +150,7 @@
 //<o> Generic clock generator 1 division <0x0000-0xFFFF>
 // <id> gclk_gen_1_div
 #ifndef CONF_GCLK_GEN_1_DIV
-#define CONF_GCLK_GEN_1_DIV 1
+#define CONF_GCLK_GEN_1_DIV 10
 #endif
 // </h>
 // </e>
@@ -311,7 +311,7 @@
 // <i> Indicates whether generic clock 4 configuration is enabled or not
 // <id> enable_gclk_gen_4
 #ifndef CONF_GCLK_GENERATOR_4_CONFIG
-#define CONF_GCLK_GENERATOR_4_CONFIG 0
+#define CONF_GCLK_GENERATOR_4_CONFIG 1
 #endif
 
 // <h> Generic Clock Generator Control
@@ -328,7 +328,7 @@
 // <i> This defines the clock source for generic clock generator 4
 // <id> gclk_gen_4_oscillator
 #ifndef CONF_GCLK_GEN_4_SOURCE
-#define CONF_GCLK_GEN_4_SOURCE GCLK_GENCTRL_SRC_XOSC1
+#define CONF_GCLK_GEN_4_SOURCE GCLK_GENCTRL_SRC_GCLKGEN1
 #endif
 
 // <q> Run in Standby
@@ -349,7 +349,7 @@
 // <i> Indicates whether Output Enable is enabled or not
 // <id> gclk_arch_gen_4_oe
 #ifndef CONF_GCLK_GEN_4_OE
-#define CONF_GCLK_GEN_4_OE 0
+#define CONF_GCLK_GEN_4_OE 1
 #endif
 
 // <q> Output Off Value
@@ -370,7 +370,7 @@
 // <i> Indicates whether Generic Clock Generator Enable is enabled or not
 // <id> gclk_arch_gen_4_enable
 #ifndef CONF_GCLK_GEN_4_GENEN
-#define CONF_GCLK_GEN_4_GENEN 0
+#define CONF_GCLK_GEN_4_GENEN 1
 #endif
 // </h>
 
@@ -378,7 +378,7 @@
 //<o> Generic clock generator 4 division <0x0000-0xFFFF>
 // <id> gclk_gen_4_div
 #ifndef CONF_GCLK_GEN_4_DIV
-#define CONF_GCLK_GEN_4_DIV 1
+#define CONF_GCLK_GEN_4_DIV 48
 #endif
 // </h>
 // </e>

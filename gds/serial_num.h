@@ -44,9 +44,15 @@
 #ifndef SERIAL_NUM_H_INCLUDED
 #define SERIAL_NUM_H_INCLUDED
 
+/** 
+ * GDS Firmware Rev : SUBBUS_BOARD_FIRMWARE_REV
+ * SUBBUS_BOARD_FIRMWARE_REV "V1.0" : CDC USB Device, ADC engine
+ * SUBBUS_BOARD_FIRMWARE_REV "V1.1" : TC Timer, on board MS8607 PTRH
+ * 
+ */
 // These parameters are common to all boards built with this code
-#define SUBBUS_BOARD_FIRMWARE_REV "V1.0"
-#define SUBBUS_BOARD_BUILD_NUM 1
+#define SUBBUS_BOARD_FIRMWARE_REV "V1.1"
+#define SUBBUS_BOARD_BUILD_NUM 2
 // #define HAVE_RTC
 
 /**

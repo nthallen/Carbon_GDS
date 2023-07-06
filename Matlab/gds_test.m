@@ -124,50 +124,39 @@ figure; plot(curlooptime,'.');
 ylabel('msec');
 
 %%
-% MS5607 Barometer :
-ms_base = hex2dec('10'); %% 0x10
+% On-Board MS8607 PTRH :
+ms8_base = hex2dec('60'); % 0x60
 
 % Read Coefficients
-rm_obj = read_multi_prep([ms_base+4,1,ms_base+9]);  % [0x14 - 0x19]
+rm_obj = read_multi_prep([ms8_base+5,1,ms8_base+10]);  % [0x65 - 0x6A]
 [vals,~] = read_multi(s,rm_obj);
 %
 if isempty(vals) || length(vals) ~= 6 
   error('vals length was %d, expected 6', length(vals));
 end
 %
-fprintf(1, '\nMS5607 Coefficients:\n');
+fprintf(1, '\nMS8607 Coefficients:\n');
 for i=1:6
-  fprintf(1, '  C%d: %x\n', i, vals(i));
+  fprintf(1, '  C%d: %x  %d\n', i, vals(i), vals(i));
 end
-%%
-rm_obj = read_multi_prep([ms_base,1,ms_base+3]); % 0x10 - 0x13
+%% P, T, and RH
+%
+rm_obj = read_multi_prep([ms8_base+1,1,ms8_base+16]); % 0x61 - 0x70
 
-fprintf(1, '\nMS5607 Pressure and Temperature:\n');
+fprintf(1, '\nMS8607 Pressure, Temperature, and Relative Humidity:\n');
 for i=0:9
   [vals,ack] = read_multi(s, rm_obj);
   
-PTread = struct( ...
+PTRHread = struct( ...
   'T', { typecast(uint32(vals(3)+65536*vals(4)),'single') }, ...
-  'P', { typecast(uint32(vals(1)+65536*vals(2)),'single') });
+  'P', { typecast(uint32(vals(1)+65536*vals(2)),'single') }, ...
+  'RH', { vals(16) });
   
-  fprintf(1,'P%d: %7.3f mBar ( %7.3f Torr )  T%d: %7.3f degC\n', i, ...
-    PTread.P, (PTread.P * 0.750062), i, PTread.T);
+  fprintf(1,'P%d: %7.3f mBar ( %7.3f Torr )  T%d: %7.3f degC  RH%d: %5.2f %%\n', ...
+    i, PTRHread.P, (PTRHread.P * 0.750062), i, PTRHread.T, i, PTRHread.RH/100);
  
   pause(1);
 end
-
-%%
-% D/A Channel 0
-write_subbus(s, 32+10, 0xFFFF);
-%%
-% D/A Channel 1
-write_subbus(s, 32+11, 0xFFFF);
-%%
-% D/A Channel 2
-write_subbus(s, 32+12, 0xFFFF);
-%%
-% D/A Channel 3
-write_subbus(s, 32+13, 0xFFFF);
 
 %%
 % Command Testing 
@@ -189,32 +178,6 @@ for npin = 1:length(cmd_pins)
   status = read_subbus(s, cmd_adr);
   fprintf(1, '  Status is %04X\n', status);
 end
-
-%%
-% DPOPS Valve test: Commands 8 and 9 
-
-fprintf(1, 'Hit ENTER to command DPOPS Mini Moudi Valve OPEN (CMD 9)\n');
-pause;
-status = read_subbus(s, cmd_adr);
-fprintf(1, '  Status is %02X\n', status);
-write_subbus(s, cmd_adr, 9);
-for numst = 1:3
-  status = read_subbus(s, cmd_adr);
-  fprintf(1, '  Status is %02X\n', status);
-  pause(0.5);
-end
-
-fprintf(1, 'Hit ENTER to command DPOPS Mini Moudi Valve CLOSED (CMD 8)\n');
-pause;
-status = read_subbus(s, cmd_adr);
-fprintf(1, '  Status is %02X\n', status);
-write_subbus(s, cmd_adr, 8);
-for numst = 1:3
-  status = read_subbus(s, cmd_adr);
-  fprintf(1, '  Status is %02X\n', status);
-  pause(0.5);
-end
-
 
 %%
 % Subbus fail test
@@ -265,22 +228,4 @@ if failval
   end
 else
   fprintf(1, 'ERROR: Timed out after %f secs without fail\n', faildur);
-end
-%%
-% Read Vibration Sensor on J4 I2C connector
-
-% mg/LSB Conversion factors by range
-ACCEL_MG_LSB_2G = (0.000061035);
-ACCEL_MG_LSB_4G = (0.000122070);
-ACCEL_MG_LSB_8G = (0.000244141);
-ACCEL_MG_LSB_16G = (0.000488281);
-
-rm_obj = read_multi_prep([97,1,99]); % [0x61,1,0x63]
-%
-  fprintf(1,'---- Accel X    Y   Z ----\n');
-for vib=1:100
-  [vals,~] = read_multi(s,rm_obj);
-  vals = vals * ACCEL_MG_LSB_2G; % Running at default +-2g range
-  fprintf(1,'	%8f	%8f	%8f\n', vals(1), vals(2), vals(3));
-  pause(.5);
 end

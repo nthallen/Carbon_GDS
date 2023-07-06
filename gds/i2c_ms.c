@@ -1,7 +1,7 @@
 /************************************************************************/
 /* 2:16 PM 5/14/2023	file i2c_ms.c  
 	
-	uDACS I2C interface to on-board MS8607 PTRH measurements
+	gds I2C interface to on-board MS8607 PTRH measurements
 	I2C ADDR: 0x76h (P&T), 0x40h (RH)
 	
 	NOTE: Needs RTC timer module for delays
@@ -17,16 +17,12 @@
  
 #define pow2(X) (float)(1<<X)
 
-#define PM_SLAVE_ADDR 0x67
-#define PM_OVERFLOW 1
-#define PM_UNDERFLOW 2
-
-struct i2c_m_async_desc PM_I2C;
+struct i2c_m_async_desc MS_I2C;
 
 static bool i2c_ms_enabled = I2C_MS_ENABLE_DEFAULT;
 
 // Need? ***
-static struct io_descriptor *PM_I2C_io;
+static struct io_descriptor *MS_I2C_io;
 static volatile bool I2C_txfr_complete = true;
 static volatile bool I2C_error_seen = false;
 /** i2c error codes are defined in hal/include/hpl_i2c_m_sync.h
@@ -37,8 +33,6 @@ static volatile uint8_t pm_ov_status = 0;
 
 static void i2c_write(int16_t i2c_addr, const uint8_t *obuf, int16_t nbytes);
 static void i2c_read(int16_t i2c_addr, uint8_t *ibuf, int16_t nbytes);
-
-// I think we can use an array here, not a struct. 
 
 typedef struct {
     uint8_t cmd[1];	// cmd - Coefficient read commands
@@ -143,7 +137,7 @@ typedef struct {
 } ms8607_poll_def;
 
 static ms8607_poll_def ms8607 = {
-    I2C_MS8607_ENABLED, ms8607_init
+    I2C_MS_ENABLE_DEFAULT, ms8607_init
 //	, 0, 0
 //	, { 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00 }
 //	, 0, 0
@@ -160,7 +154,7 @@ static bool poll_ms8607() {
   float dT; 	// difference between actual and measured temperature
   float OFF; 	// offset at actual temperature
   float SENS; 	// sensitivity at actual temperature
-  if (!I2C_MS8607_ENABLED || !I2C_txfr_complete ) return true;
+  if (!i2c_ms_enabled || !I2C_txfr_complete ) return true;
   switch (ms8607.state) {
     // Reset ms8607
     case ms8607_init:
@@ -333,7 +327,7 @@ typedef struct {
 } msrh_poll_def;
 
 static msrh_poll_def msrh = {
-    I2C_MSRH_ENABLED, msrh_init
+    I2C_MS_ENABLE_DEFAULT, msrh_init
 //	, 0, 0
 //	, 0, 0
 };
@@ -344,7 +338,7 @@ static msrh_poll_def msrh = {
  * return true if we are relinquishing the I2C bus
  */
 static bool poll_msrh(void) {
-  if (!I2C_MSRH_ENABLED || !I2C_txfr_complete ) return true;
+  if (!i2c_ms_enabled || !I2C_txfr_complete ) return true;
   switch (msrh.state) {
   //  Reset MS8607 RH
     case msrh_init:
@@ -403,15 +397,15 @@ static bool poll_msrh(void) {
 static void i2c_write(int16_t i2c_addr, const uint8_t *obuf, int16_t nbytes) {
   assert(I2C_txfr_complete, __FILE__, __LINE__);
   I2C_txfr_complete = false;
-  i2c_m_async_set_slaveaddr(&PM_I2C, i2c_addr, I2C_M_SEVEN);
-  io_write(PM_I2C_io, obuf, nbytes);
+  i2c_m_async_set_slaveaddr(&MS_I2C, i2c_addr, I2C_M_SEVEN);
+  io_write(MS_I2C_io, obuf, nbytes);
 }
 
 static void i2c_read(int16_t i2c_addr, uint8_t *ibuf, int16_t nbytes) {
   assert(I2C_txfr_complete, __FILE__, __LINE__);
   I2C_txfr_complete = false;
-  i2c_m_async_set_slaveaddr(&PM_I2C, i2c_addr, I2C_M_SEVEN);
-  io_read(PM_I2C_io, ibuf, nbytes);
+  i2c_m_async_set_slaveaddr(&MS_I2C, i2c_addr, I2C_M_SEVEN);
+  io_read(MS_I2C_io, ibuf, nbytes);
 }
 
 void i2c_ms_enable(bool value) {
@@ -433,8 +427,8 @@ static void I2C_async_error(struct i2c_m_async_desc *const i2c, int32_t error) {
     sb_cache_update(i2c_ms_cache, I2C_MS_STATUS_OFFSET, val);
   }
   if (error == I2C_ERR_BUS) {
-    hri_sercomi2cm_write_STATUS_reg(PM_I2C.device.hw, SERCOM_I2CM_STATUS_BUSERR);
-    hri_sercomi2cm_clear_INTFLAG_reg(PM_I2C.device.hw, I2C_INTFLAG_ERROR);
+    hri_sercomi2cm_write_STATUS_reg(MS_I2C.device.hw, SERCOM_I2CM_STATUS_BUSERR);
+    hri_sercomi2cm_clear_INTFLAG_reg(MS_I2C.device.hw, I2C_INTFLAG_ERROR);
   }
 }
 
@@ -444,42 +438,43 @@ static void I2C_txfr_completed(struct i2c_m_async_desc *const i2c) {
 
 static void i2c_ms_reset() {
   if (!sb_i2c_ms.initialized) {
-    PM_I2C_init();
-    i2c_m_async_get_io_descriptor(&PM_I2C, &PM_I2C_io);
-    i2c_m_async_enable(&PM_I2C);
-    i2c_m_async_register_callback(&PM_I2C, I2C_M_ASYNC_ERROR, (FUNC_PTR)I2C_async_error);
-    i2c_m_async_register_callback(&PM_I2C, I2C_M_ASYNC_TX_COMPLETE, (FUNC_PTR)I2C_txfr_completed);
-    i2c_m_async_register_callback(&PM_I2C, I2C_M_ASYNC_RX_COMPLETE, (FUNC_PTR)I2C_txfr_completed);
+    MS_I2C_init();
+    i2c_m_async_get_io_descriptor(&MS_I2C, &MS_I2C_io);
+    i2c_m_async_enable(&MS_I2C);
+    i2c_m_async_register_callback(&MS_I2C, I2C_M_ASYNC_ERROR, (FUNC_PTR)I2C_async_error);
+    i2c_m_async_register_callback(&MS_I2C, I2C_M_ASYNC_TX_COMPLETE, (FUNC_PTR)I2C_txfr_completed);
+    i2c_m_async_register_callback(&MS_I2C, I2C_M_ASYNC_RX_COMPLETE, (FUNC_PTR)I2C_txfr_completed);
 
     sb_i2c_ms.initialized = true;
   }
 }
 //  End of I2C functions
 
-//	PM_I2C Driver
-void PM_I2C_PORT_init(void)
+//	MS_I2C Driver
+void MS_I2C_PORT_init(void)
 {
-	gpio_set_pin_pull_mode(C3P_SDA, GPIO_PULL_OFF);
-	gpio_set_pin_function(C3P_SDA, PINMUX_PA16C_SERCOM1_PAD0);
+	gpio_set_pin_pull_mode(MS_SDA, GPIO_PULL_OFF);
+	gpio_set_pin_function(MS_SDA, PINMUX_PA22C_SERCOM3_PAD0);
 
-	gpio_set_pin_pull_mode(C3P_SCL, GPIO_PULL_OFF);
-	gpio_set_pin_function(C3P_SCL, PINMUX_PA17C_SERCOM1_PAD1);
+	gpio_set_pin_pull_mode(MS_SCL, GPIO_PULL_OFF);
+	gpio_set_pin_function(MS_SCL, PINMUX_PA23C_SERCOM3_PAD1);
 }
 
-void PM_I2C_CLOCK_init(void)
+void MS_I2C_CLOCK_init(void)
 {
-	hri_gclk_write_PCHCTRL_reg(GCLK, SERCOM1_GCLK_ID_CORE, CONF_GCLK_SERCOM1_CORE_SRC | (1 << GCLK_PCHCTRL_CHEN_Pos));
-	hri_gclk_write_PCHCTRL_reg(GCLK, SERCOM1_GCLK_ID_SLOW, CONF_GCLK_SERCOM1_SLOW_SRC | (1 << GCLK_PCHCTRL_CHEN_Pos));
-	hri_mclk_set_APBAMASK_SERCOM1_bit(MCLK);
+	hri_gclk_write_PCHCTRL_reg(GCLK, SERCOM3_GCLK_ID_CORE, CONF_GCLK_SERCOM3_CORE_SRC | (1 << GCLK_PCHCTRL_CHEN_Pos));
+	hri_gclk_write_PCHCTRL_reg(GCLK, SERCOM3_GCLK_ID_SLOW, CONF_GCLK_SERCOM3_SLOW_SRC | (1 << GCLK_PCHCTRL_CHEN_Pos));
+
+	hri_mclk_set_APBBMASK_SERCOM3_bit(MCLK);
 }
 
-void PM_I2C_init(void)
+void MS_I2C_init(void)
 {
-	PM_I2C_CLOCK_init();
-	i2c_m_async_init(&PM_I2C, SERCOM1);
-	PM_I2C_PORT_init();
+	MS_I2C_CLOCK_init();
+	i2c_m_async_init(&MS_I2C, SERCOM3);
+	MS_I2C_PORT_init();
 }
-//	End of PM_I2C Driver
+//	End of MS_I2C Driver
 
 // Main poll loop
 

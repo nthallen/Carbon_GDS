@@ -1304,6 +1304,9 @@
     <Compile Include="i2c_ms.c">
       <SubType>compile</SubType>
     </Compile>
+    <Compile Include="i2c_pm.c">
+      <SubType>compile</SubType>
+    </Compile>
     <Compile Include="rtc_timer.c">
       <SubType>compile</SubType>
     </Compile>

@@ -54,8 +54,8 @@ desc = char(il);
 fprintf(1,'Description from FIFO is: %s\n', desc);
 %fprintf(1, 'Now figure out how to interpret the result\n');
 
-%%
-% Read the ADS1115 ADC Section
+%% Read the ADS1115 ADC Section
+% 
 adc_adr = 32;   % 0x20 
 adc_nch = 16;   % 16 channels total
 rm_obj = read_multi_prep([adc_adr,1,(adc_adr+adc_nch+1)]); % [0x20,1,0x31]
@@ -123,8 +123,8 @@ end
 figure; plot(curlooptime,'.');
 ylabel('msec');
 
-%%
-% On-Board MS8607 PTRH :
+%%  On-Board MS8607 PTRH :
+% 
 ms8_base = hex2dec('60'); % 0x60
 
 % Read Coefficients
@@ -158,8 +158,31 @@ PTRHread = struct( ...
   pause(1);
 end
 
-%%
-% Command Testing 
+%%  Power Monitor Interface (Carbon Ckt3) :
+% 
+pm_base = hex2dec('80'); % 0x80
+Rs = 0.001; % Current Sense Resistance in Ohms
+
+%
+rm_obj = read_multi_prep([pm_base+1,1,pm_base+4]); % 0x81 - 0x83
+
+fprintf(1, '\nLTC4151 Power Monitor I, V and Vaux :\n');
+for i=0:9
+  [vals,ack] = read_multi(s, rm_obj);
+  
+PMread = struct( ...
+  'I', { vals(1)*(81.92)/(4096 * Rs) }, ...
+  'V', { vals(2)*(102.4)/4096  }, ...
+  'VA', { vals(3)*(2048)/4096 });
+  
+  fprintf(1,'I%d: %7.3f mA  V%d: %7.3f V  VA%d: %7.3f mV \n', ...
+    i, PMread.I, i, PMread.V, i, PMread.VA);
+ 
+  pause(1);
+end
+
+%%  Command Testing 
+% 
 cmd_adr = 16;  % 0x10 
 cmd_pins = { 'CAL_HI', 'CAL_LO', 'CAL_REF', 'CO2_REF', 'CAL_SPR', 'MM_PUMP', 'MM_EXH', 'CO2_PUMP', 'CO2_EXH', 'CKT3_EN', 'INV_ARM'
  };

@@ -47,9 +47,30 @@ void MS_I2C_init(void);
 // PM Defs
 #define I2C_PM_BASE_ADDR 0x80
 #define I2C_PM_STATUS_OFFSET 0x00
-#define I2C_PM_HIGH_ADDR 0x86
+#define I2C_PM_HIGH_ADDR 0x84
 
-#define I2C_PM_MAX_READ_LENGTH 3
+#define I2C_PM_MAX_READ_LENGTH 6
+
+/***********************************
+  LTC4151 Addressing
+  A1,A0: LTC4151 Address Pins
+  R1-R4: Power Monitor Resistors
+  ADR Hex A1 A0 R1 R2 R3 R4
+  All CC  X  X 
+    0 CE  H  L  0R       0R
+    1 D0  NC H        0R
+    2 D2  H  H  0R    0R
+    3 D4  NC NC
+    4 D6  NC L           0R
+    5 D8  L  H     0R 0R
+    6 DA  H NC  0R
+    7 DC  L NC     0R
+    8 DE  L  L     0R    0R
+ */
+// Future: scan through all addresses and cache PMons that are present. Not implemented
+#define PM_I2C_ADDR 0xD0 // Addr 1. Only one for now. 
+
+#define LTC4151_CMD 00  // Pointer to first reg address
 
 // ADC Defs
 #define I2C_ADC_BASE_ADDR 0x20

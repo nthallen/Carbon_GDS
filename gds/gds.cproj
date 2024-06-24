@@ -210,7 +210,7 @@
       </AcmeProjectConfig>
     </AcmeProjectConfig>
     <avrtool>com.atmel.avrdbg.tool.atmelice</avrtool>
-    <avrtoolserialnumber>J42700013716</avrtoolserialnumber>
+    <avrtoolserialnumber>J41800051433</avrtoolserialnumber>
     <avrdeviceexpectedsignature>0x61810302</avrdeviceexpectedsignature>
     <custom>
       <ToolOptions>
@@ -233,7 +233,7 @@
         <InterfaceName>SWD</InterfaceName>
       </ToolOptions>
       <ToolType>com.atmel.avrdbg.tool.atmelice</ToolType>
-      <ToolNumber>J42700013716</ToolNumber>
+      <ToolNumber>J41800051433</ToolNumber>
       <ToolName>Atmel-ICE</ToolName>
     </com_atmel_avrdbg_tool_atmelice>
     <avrtoolinterfaceclock>2000000</avrtoolinterfaceclock>
@@ -616,129 +616,6 @@
     </ToolchainSettings>
     <OutputPath>bin\SN1_Debug\</OutputPath>
   </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)' == 'SN2_Debug' ">
-    <ToolchainSettings>
-      <ArmGcc>
-  <armgcc.common.outputfiles.hex>True</armgcc.common.outputfiles.hex>
-  <armgcc.common.outputfiles.lss>True</armgcc.common.outputfiles.lss>
-  <armgcc.common.outputfiles.eep>True</armgcc.common.outputfiles.eep>
-  <armgcc.common.outputfiles.bin>True</armgcc.common.outputfiles.bin>
-  <armgcc.common.outputfiles.srec>True</armgcc.common.outputfiles.srec>
-  <armgcc.compiler.symbols.DefSymbols>
-    <ListValues>
-      <Value>DEBUG</Value>
-      <Value>SUBBUS_BOARD_SN=2</Value>
-    </ListValues>
-  </armgcc.compiler.symbols.DefSymbols>
-  <armgcc.compiler.directories.IncludePaths>
-    <ListValues>
-      <Value>%24(PackRepoDir)\ARM\CMSIS\5.4.0\CMSIS\Core\Include\</Value>
-      <Value>%24(PackRepoDir)\atmel\SAME51_DFP\1.1.139\include</Value>
-      <Value>../Config</Value>
-      <Value>../</Value>
-      <Value>../examples</Value>
-      <Value>../hal/include</Value>
-      <Value>../hal/utils/include</Value>
-      <Value>../hpl/cmcc</Value>
-      <Value>../hpl/core</Value>
-      <Value>../hpl/dmac</Value>
-      <Value>../hpl/gclk</Value>
-      <Value>../hpl/mclk</Value>
-      <Value>../hpl/osc32kctrl</Value>
-      <Value>../hpl/oscctrl</Value>
-      <Value>../hpl/pm</Value>
-      <Value>../hpl/port</Value>
-      <Value>../hpl/ramecc</Value>
-      <Value>../hpl/sercom</Value>
-      <Value>../hpl/usb</Value>
-      <Value>../hri</Value>
-      <Value>../usb</Value>
-      <Value>../usb/class/cdc</Value>
-      <Value>../usb/class/cdc/device</Value>
-      <Value>../usb/device</Value>
-    </ListValues>
-  </armgcc.compiler.directories.IncludePaths>
-  <armgcc.compiler.optimization.level>Optimize (-O1)</armgcc.compiler.optimization.level>
-  <armgcc.compiler.optimization.PrepareFunctionsForGarbageCollection>True</armgcc.compiler.optimization.PrepareFunctionsForGarbageCollection>
-  <armgcc.compiler.optimization.DebugLevel>Maximum (-g3)</armgcc.compiler.optimization.DebugLevel>
-  <armgcc.compiler.warnings.AllWarnings>True</armgcc.compiler.warnings.AllWarnings>
-  <armgcc.compiler.miscellaneous.OtherFlags>-std=gnu99 -mfloat-abi=softfp -mfpu=fpv4-sp-d16</armgcc.compiler.miscellaneous.OtherFlags>
-  <armgcc.linker.general.UseNewlibNano>True</armgcc.linker.general.UseNewlibNano>
-  <armgcc.linker.libraries.Libraries>
-    <ListValues>
-      <Value>libm</Value>
-    </ListValues>
-  </armgcc.linker.libraries.Libraries>
-  <armgcc.linker.libraries.LibrarySearchPaths>
-    <ListValues>
-      <Value>%24(ProjectDir)\Device_Startup</Value>
-    </ListValues>
-  </armgcc.linker.libraries.LibrarySearchPaths>
-  <armgcc.linker.optimization.GarbageCollectUnusedSections>True</armgcc.linker.optimization.GarbageCollectUnusedSections>
-  <armgcc.linker.memorysettings.ExternalRAM />
-  <armgcc.linker.miscellaneous.LinkerFlags>-Tsame51j19a_flash.ld</armgcc.linker.miscellaneous.LinkerFlags>
-  <armgcc.assembler.general.IncludePaths>
-    <ListValues>
-      <Value>%24(PackRepoDir)\ARM\CMSIS\5.4.0\CMSIS\Core\Include\</Value>
-      <Value>%24(PackRepoDir)\atmel\SAME51_DFP\1.1.139\include</Value>
-      <Value>../Config</Value>
-      <Value>../</Value>
-      <Value>../examples</Value>
-      <Value>../hal/include</Value>
-      <Value>../hal/utils/include</Value>
-      <Value>../hpl/cmcc</Value>
-      <Value>../hpl/core</Value>
-      <Value>../hpl/dmac</Value>
-      <Value>../hpl/gclk</Value>
-      <Value>../hpl/mclk</Value>
-      <Value>../hpl/osc32kctrl</Value>
-      <Value>../hpl/oscctrl</Value>
-      <Value>../hpl/pm</Value>
-      <Value>../hpl/port</Value>
-      <Value>../hpl/ramecc</Value>
-      <Value>../hpl/sercom</Value>
-      <Value>../hpl/usb</Value>
-      <Value>../hri</Value>
-      <Value>../usb</Value>
-      <Value>../usb/class/cdc</Value>
-      <Value>../usb/class/cdc/device</Value>
-      <Value>../usb/device</Value>
-    </ListValues>
-  </armgcc.assembler.general.IncludePaths>
-  <armgcc.assembler.debugging.DebugLevel>Default (-g)</armgcc.assembler.debugging.DebugLevel>
-  <armgcc.preprocessingassembler.general.IncludePaths>
-    <ListValues>
-      <Value>%24(PackRepoDir)\ARM\CMSIS\5.4.0\CMSIS\Core\Include\</Value>
-      <Value>%24(PackRepoDir)\atmel\SAME51_DFP\1.1.139\include</Value>
-      <Value>../Config</Value>
-      <Value>../</Value>
-      <Value>../examples</Value>
-      <Value>../hal/include</Value>
-      <Value>../hal/utils/include</Value>
-      <Value>../hpl/cmcc</Value>
-      <Value>../hpl/core</Value>
-      <Value>../hpl/dmac</Value>
-      <Value>../hpl/gclk</Value>
-      <Value>../hpl/mclk</Value>
-      <Value>../hpl/osc32kctrl</Value>
-      <Value>../hpl/oscctrl</Value>
-      <Value>../hpl/pm</Value>
-      <Value>../hpl/port</Value>
-      <Value>../hpl/ramecc</Value>
-      <Value>../hpl/sercom</Value>
-      <Value>../hpl/usb</Value>
-      <Value>../hri</Value>
-      <Value>../usb</Value>
-      <Value>../usb/class/cdc</Value>
-      <Value>../usb/class/cdc/device</Value>
-      <Value>../usb/device</Value>
-    </ListValues>
-  </armgcc.preprocessingassembler.general.IncludePaths>
-  <armgcc.preprocessingassembler.debugging.DebugLevel>Default (-Wa,-g)</armgcc.preprocessingassembler.debugging.DebugLevel>
-</ArmGcc>
-    </ToolchainSettings>
-    <OutputPath>bin\SN2_Debug\</OutputPath>
-  </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)' == 'SN3_Debug' ">
     <ToolchainSettings>
       <ArmGcc>
@@ -751,6 +628,13 @@
     <ListValues>
       <Value>DEBUG</Value>
       <Value>SUBBUS_BOARD_SN=3</Value>
+      <Value>CONF_USB_CDCD_ACM_IPRODUCT_EN=1</Value>
+      <Value>CONF_USB_CDCD_ACM_IPRODUCT_STR_DESC=,50,3,79,0,112,0,116,0,105,0,99,0,97,0,108,0,32,0,69,0,110,0,99,0,108,0,111,0,115,0,117,0,114,0,101,0,32,0,83,0,104,0,105,0,101,0,108,0,100,0</Value>
+      <Value>CONF_USB_CDCD_ACM_ISERIALNUM_EN=1</Value>
+      <Value>CONF_USB_CDCD_ACM_ISERIALNUM_STR_DESC=,18,3,71,0,68,0,83,0,48,0,48,0,48,0,48,0,51,0</Value>
+      <Value>CONF_USB_CDCD_ACM_IMANUFACT_EN=1</Value>
+      <Value>CONF_USB_CDCD_ACM_IMANUFACT_STR_DESC=,34,3,76,0,105,0,110,0,107,0,32,0,69,0,110,0,103,0,105,0,110,0,101,0,101,0,114,0,105,0,110,0,103,0</Value>
+      <Value>CONF_USB_CDCD_ACM_LANGID_DESC=4,3,9,4</Value>
     </ListValues>
   </armgcc.compiler.symbols.DefSymbols>
   <armgcc.compiler.directories.IncludePaths>
@@ -773,6 +657,7 @@
       <Value>../hpl/port</Value>
       <Value>../hpl/ramecc</Value>
       <Value>../hpl/sercom</Value>
+      <Value>../hpl/tc</Value>
       <Value>../hpl/usb</Value>
       <Value>../hri</Value>
       <Value>../usb</Value>
@@ -820,6 +705,7 @@
       <Value>../hpl/port</Value>
       <Value>../hpl/ramecc</Value>
       <Value>../hpl/sercom</Value>
+      <Value>../hpl/tc</Value>
       <Value>../hpl/usb</Value>
       <Value>../hri</Value>
       <Value>../usb</Value>
@@ -849,6 +735,7 @@
       <Value>../hpl/port</Value>
       <Value>../hpl/ramecc</Value>
       <Value>../hpl/sercom</Value>
+      <Value>../hpl/tc</Value>
       <Value>../hpl/usb</Value>
       <Value>../hri</Value>
       <Value>../usb</Value>
@@ -861,6 +748,139 @@
 </ArmGcc>
     </ToolchainSettings>
     <OutputPath>bin\SN3_Debug\</OutputPath>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)' == 'SN4_Debug' ">
+    <ToolchainSettings>
+      <ArmGcc>
+  <armgcc.common.outputfiles.hex>True</armgcc.common.outputfiles.hex>
+  <armgcc.common.outputfiles.lss>True</armgcc.common.outputfiles.lss>
+  <armgcc.common.outputfiles.eep>True</armgcc.common.outputfiles.eep>
+  <armgcc.common.outputfiles.bin>True</armgcc.common.outputfiles.bin>
+  <armgcc.common.outputfiles.srec>True</armgcc.common.outputfiles.srec>
+  <armgcc.compiler.symbols.DefSymbols>
+    <ListValues>
+      <Value>DEBUG</Value>
+      <Value>SUBBUS_BOARD_SN=4</Value>
+      <Value>CONF_USB_CDCD_ACM_IPRODUCT_EN=1</Value>
+      <Value>CONF_USB_CDCD_ACM_IPRODUCT_STR_DESC=,50,3,79,0,112,0,116,0,105,0,99,0,97,0,108,0,32,0,69,0,110,0,99,0,108,0,111,0,115,0,117,0,114,0,101,0,32,0,83,0,104,0,105,0,101,0,108,0,100,0</Value>
+      <Value>CONF_USB_CDCD_ACM_IMANUFACT_EN=1</Value>
+      <Value>CONF_USB_CDCD_ACM_IMANUFACT_STR_DESC=,34,3,76,0,105,0,110,0,107,0,32,0,69,0,110,0,103,0,105,0,110,0,101,0,101,0,114,0,105,0,110,0,103,0</Value>
+      <Value>CONF_USB_CDCD_ACM_ISERIALNUM_EN=1</Value>
+      <Value>CONF_USB_CDCD_ACM_ISERIALNUM_STR_DESC=,18,3,71,0,68,0,83,0,48,0,48,0,48,0,48,0,52,0</Value>
+      <Value>CONF_USB_CDCD_ACM_LANGID_DESC=4,3,9,4</Value>
+    </ListValues>
+  </armgcc.compiler.symbols.DefSymbols>
+  <armgcc.compiler.directories.IncludePaths>
+    <ListValues>
+      <Value>%24(PackRepoDir)\ARM\CMSIS\5.4.0\CMSIS\Core\Include\</Value>
+      <Value>%24(PackRepoDir)\atmel\SAME51_DFP\1.1.139\include</Value>
+      <Value>../Config</Value>
+      <Value>../</Value>
+      <Value>../examples</Value>
+      <Value>../hal/include</Value>
+      <Value>../hal/utils/include</Value>
+      <Value>../hpl/cmcc</Value>
+      <Value>../hpl/core</Value>
+      <Value>../hpl/dmac</Value>
+      <Value>../hpl/gclk</Value>
+      <Value>../hpl/mclk</Value>
+      <Value>../hpl/osc32kctrl</Value>
+      <Value>../hpl/oscctrl</Value>
+      <Value>../hpl/pm</Value>
+      <Value>../hpl/port</Value>
+      <Value>../hpl/ramecc</Value>
+      <Value>../hpl/sercom</Value>
+      <Value>../hpl/tc</Value>
+      <Value>../hpl/usb</Value>
+      <Value>../hri</Value>
+      <Value>../usb</Value>
+      <Value>../usb/class/cdc</Value>
+      <Value>../usb/class/cdc/device</Value>
+      <Value>../usb/device</Value>
+    </ListValues>
+  </armgcc.compiler.directories.IncludePaths>
+  <armgcc.compiler.optimization.level>Optimize (-O1)</armgcc.compiler.optimization.level>
+  <armgcc.compiler.optimization.PrepareFunctionsForGarbageCollection>True</armgcc.compiler.optimization.PrepareFunctionsForGarbageCollection>
+  <armgcc.compiler.optimization.DebugLevel>Maximum (-g3)</armgcc.compiler.optimization.DebugLevel>
+  <armgcc.compiler.warnings.AllWarnings>True</armgcc.compiler.warnings.AllWarnings>
+  <armgcc.compiler.miscellaneous.OtherFlags>-std=gnu99 -mfloat-abi=softfp -mfpu=fpv4-sp-d16</armgcc.compiler.miscellaneous.OtherFlags>
+  <armgcc.linker.general.UseNewlibNano>True</armgcc.linker.general.UseNewlibNano>
+  <armgcc.linker.libraries.Libraries>
+    <ListValues>
+      <Value>libm</Value>
+    </ListValues>
+  </armgcc.linker.libraries.Libraries>
+  <armgcc.linker.libraries.LibrarySearchPaths>
+    <ListValues>
+      <Value>%24(ProjectDir)\Device_Startup</Value>
+    </ListValues>
+  </armgcc.linker.libraries.LibrarySearchPaths>
+  <armgcc.linker.optimization.GarbageCollectUnusedSections>True</armgcc.linker.optimization.GarbageCollectUnusedSections>
+  <armgcc.linker.memorysettings.ExternalRAM />
+  <armgcc.linker.miscellaneous.LinkerFlags>-Tsame51j19a_flash.ld</armgcc.linker.miscellaneous.LinkerFlags>
+  <armgcc.assembler.general.IncludePaths>
+    <ListValues>
+      <Value>%24(PackRepoDir)\ARM\CMSIS\5.4.0\CMSIS\Core\Include\</Value>
+      <Value>%24(PackRepoDir)\atmel\SAME51_DFP\1.1.139\include</Value>
+      <Value>../Config</Value>
+      <Value>../</Value>
+      <Value>../examples</Value>
+      <Value>../hal/include</Value>
+      <Value>../hal/utils/include</Value>
+      <Value>../hpl/cmcc</Value>
+      <Value>../hpl/core</Value>
+      <Value>../hpl/dmac</Value>
+      <Value>../hpl/gclk</Value>
+      <Value>../hpl/mclk</Value>
+      <Value>../hpl/osc32kctrl</Value>
+      <Value>../hpl/oscctrl</Value>
+      <Value>../hpl/pm</Value>
+      <Value>../hpl/port</Value>
+      <Value>../hpl/ramecc</Value>
+      <Value>../hpl/sercom</Value>
+      <Value>../hpl/tc</Value>
+      <Value>../hpl/usb</Value>
+      <Value>../hri</Value>
+      <Value>../usb</Value>
+      <Value>../usb/class/cdc</Value>
+      <Value>../usb/class/cdc/device</Value>
+      <Value>../usb/device</Value>
+    </ListValues>
+  </armgcc.assembler.general.IncludePaths>
+  <armgcc.assembler.debugging.DebugLevel>Default (-g)</armgcc.assembler.debugging.DebugLevel>
+  <armgcc.preprocessingassembler.general.IncludePaths>
+    <ListValues>
+      <Value>%24(PackRepoDir)\ARM\CMSIS\5.4.0\CMSIS\Core\Include\</Value>
+      <Value>%24(PackRepoDir)\atmel\SAME51_DFP\1.1.139\include</Value>
+      <Value>../Config</Value>
+      <Value>../</Value>
+      <Value>../examples</Value>
+      <Value>../hal/include</Value>
+      <Value>../hal/utils/include</Value>
+      <Value>../hpl/cmcc</Value>
+      <Value>../hpl/core</Value>
+      <Value>../hpl/dmac</Value>
+      <Value>../hpl/gclk</Value>
+      <Value>../hpl/mclk</Value>
+      <Value>../hpl/osc32kctrl</Value>
+      <Value>../hpl/oscctrl</Value>
+      <Value>../hpl/pm</Value>
+      <Value>../hpl/port</Value>
+      <Value>../hpl/ramecc</Value>
+      <Value>../hpl/sercom</Value>
+      <Value>../hpl/tc</Value>
+      <Value>../hpl/usb</Value>
+      <Value>../hri</Value>
+      <Value>../usb</Value>
+      <Value>../usb/class/cdc</Value>
+      <Value>../usb/class/cdc/device</Value>
+      <Value>../usb/device</Value>
+    </ListValues>
+  </armgcc.preprocessingassembler.general.IncludePaths>
+  <armgcc.preprocessingassembler.debugging.DebugLevel>Default (-Wa,-g)</armgcc.preprocessingassembler.debugging.DebugLevel>
+</ArmGcc>
+    </ToolchainSettings>
+    <OutputPath>bin\SN4_Debug\</OutputPath>
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="commands.c">
@@ -912,12 +932,6 @@
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="Device_Startup\system_same51.c">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="examples\driver_examples.c">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="examples\driver_examples.h">
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="gds_pins.h">

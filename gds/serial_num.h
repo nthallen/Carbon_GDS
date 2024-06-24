@@ -75,7 +75,7 @@
   #define SUBBUS_BOARD_LOCATION "Gas Deck"
 #endif
 
-#if SUBBUS_BOARD_SN == 2
+#if SUBBUS_BOARD_SN == 3
   #define SUBBUS_BOARD_ID 2 // OE
   #define SUBBUS_BOARD_BOARD_TYPE "Optical Enclosure Shield"
   #define SUBBUS_BOARD_INSTRUMENT_ID 10
@@ -83,7 +83,7 @@
   #define SUBBUS_BOARD_LOCATION "CO2"
 #endif
 
-#if SUBBUS_BOARD_SN == 3
+#if SUBBUS_BOARD_SN == 4
   #define SUBBUS_BOARD_ID 2 // OE
   #define SUBBUS_BOARD_BOARD_TYPE "Optical Enclosure Shield"
   #define SUBBUS_BOARD_INSTRUMENT_ID 10

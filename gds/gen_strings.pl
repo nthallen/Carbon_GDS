@@ -9,7 +9,7 @@ use strict;
 my %strings = (
   IMANUFACT => "Link Engineering",
   IPRODUCT => "Gas Deck Shield",
-  ISERIALNUM => "GDS00001"
+  ISERIALNUM => "GDS00005"
 );
 my %is_string = map { ($_, 1) } qw(IMANUFACT IPRODUCT ISERIALNUM);
 my $has_a_string = 0;

@@ -52,7 +52,7 @@
  */
 // These parameters are common to all boards built with this code
 #define SUBBUS_BOARD_FIRMWARE_REV "V1.1"
-#define SUBBUS_BOARD_BUILD_NUM 2
+#define SUBBUS_BOARD_BUILD_NUM 3
 // #define HAVE_RTC
 
 /**
@@ -75,6 +75,14 @@
   #define SUBBUS_BOARD_LOCATION "Gas Deck"
 #endif
 
+#if SUBBUS_BOARD_SN == 2
+#define SUBBUS_BOARD_ID 1 // GDS
+#define SUBBUS_BOARD_BOARD_TYPE "Gas Deck Shield"
+#define SUBBUS_BOARD_INSTRUMENT_ID 10
+#define SUBBUS_BOARD_INSTRUMENT "FOCAL"
+#define SUBBUS_BOARD_LOCATION "Gas Deck"
+#endif
+
 #if SUBBUS_BOARD_SN == 3
   #define SUBBUS_BOARD_ID 2 // OE
   #define SUBBUS_BOARD_BOARD_TYPE "Optical Enclosure Shield"
@@ -84,11 +92,19 @@
 #endif
 
 #if SUBBUS_BOARD_SN == 4
-  #define SUBBUS_BOARD_ID 2 // OE
+  #define SUBBUS_BOARD_ID 3 // OE
   #define SUBBUS_BOARD_BOARD_TYPE "Optical Enclosure Shield"
   #define SUBBUS_BOARD_INSTRUMENT_ID 10
   #define SUBBUS_BOARD_INSTRUMENT "FOCAL"
   #define SUBBUS_BOARD_LOCATION "Methane"
+#endif
+
+#if SUBBUS_BOARD_SN == 5
+#define SUBBUS_BOARD_ID 4 // OE
+#define SUBBUS_BOARD_BOARD_TYPE "Bay Shield"
+#define SUBBUS_BOARD_INSTRUMENT_ID 10
+#define SUBBUS_BOARD_INSTRUMENT "FOCAL"
+#define SUBBUS_BOARD_LOCATION "Bay"
 #endif
 
 #if ! defined(SUBBUS_BOARD_ID)

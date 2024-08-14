@@ -133,17 +133,17 @@ static void cmd_poll(void) {
   }
 
   status = 0;
-  update_status(&status, CAL_HI, 0x0001);
-  update_status(&status, CAL_LO, 0x0002);
-  update_status(&status, CAL_REF, 0x0004);
-  update_status(&status, CO2_REF, 0x0008);
-  update_status(&status, CAL_SPR, 0x0010);
-  update_status(&status, MM_PUMP, 0x0020);
-  update_status(&status, MM_EXH, 0x0040);
-  update_status(&status, CO2_PUMP, 0x0080);
-  update_status(&status, CO2_EXH, 0x0100);
-  update_status(&status, CKT3_EN, 0x0200);
-  update_status(&status, INV_ARM, 0x0400);
+  update_status(&status, CAL_HI,   1<<0);
+  update_status(&status, CAL_LO,   1<<1);
+  update_status(&status, CAL_REF,  1<<2);
+  update_status(&status, CO2_REF,  1<<3);
+  update_status(&status, MM_PUMP,  1<<4);
+  update_status(&status, MM_EXH,   1<<5);
+  update_status(&status, CO2_PUMP, 1<<6);
+  update_status(&status, CO2_EXH,  1<<7);
+  update_status(&status, CAL_SPR,  1<<8);
+  update_status(&status, CKT3_EN,  1<<9);
+  update_status(&status, INV_ARM,  1<<10);
   sb_cache_update(cmd_cache, 0, status); // Make status bits true in high
 }
 

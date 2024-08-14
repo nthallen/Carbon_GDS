@@ -44,15 +44,26 @@
 #ifndef SERIAL_NUM_H_INCLUDED
 #define SERIAL_NUM_H_INCLUDED
 
-/** 
+/**
+ * GDS Project
+ * Not to be confused with GDS_OE
+ *
  * GDS Firmware Rev : SUBBUS_BOARD_FIRMWARE_REV
  * SUBBUS_BOARD_FIRMWARE_REV "V1.0" : CDC USB Device, ADC engine
  * SUBBUS_BOARD_FIRMWARE_REV "V1.1" : TC Timer, on board MS8607 PTRH
+ * SUBBUS_BOARD_FIRMWARE_REV "V1.2" : Ensure SN/BOARD_IDs are allocated
+ *   to the appropriate project. Carbon_GDS uses the PM_I2C interface,
+ *   while Carbon_GDS_OE uses those pins as digital inputs.
+ *   Serial Numbers for boards whose application conflicts with the
+ *   START configuration should be commented out.
+ * SUBBUS_BOARD_FIRMWARE_REV "V1.3" : i2c_adc fixes from Carbon_GDS_OE
+ * Any board programmed from this project should use the board
+ * type description "Gas Deck Shield"
  * 
  */
 // These parameters are common to all boards built with this code
-#define SUBBUS_BOARD_FIRMWARE_REV "V1.1"
-#define SUBBUS_BOARD_BUILD_NUM 3
+#define SUBBUS_BOARD_FIRMWARE_REV "V1.3"
+#define SUBBUS_BOARD_BUILD_NUM 5
 // #define HAVE_RTC
 
 /**
@@ -83,6 +94,7 @@
 #define SUBBUS_BOARD_LOCATION "Gas Deck"
 #endif
 
+#if 0 // GDS_COE uses the PM_I2C pins for I/O
 #if SUBBUS_BOARD_SN == 3
   #define SUBBUS_BOARD_ID 2 // OE
   #define SUBBUS_BOARD_BOARD_TYPE "Optical Enclosure Shield"
@@ -106,6 +118,7 @@
 #define SUBBUS_BOARD_INSTRUMENT "FOCAL"
 #define SUBBUS_BOARD_LOCATION "Bay"
 #endif
+#endif // 0
 
 #if ! defined(SUBBUS_BOARD_ID)
 #error Must define SUBBUS_BOARD_ID
